@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Ruheen ✨ - Limited Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Space+Grotesk:wght@400;700;900&family=Bangers&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --pkg-shadow: #000000;
+            --plastic-highlight: rgba(255, 255, 255, 0.8);
+            --plastic-shadow: rgba(0, 0, 0, 0.4);
+            --plastic-base: rgba(255, 255, 255, 0.1);
+            --card-pink: #ff1493;
+            --card-cyan: #00ffff;
+            --card-yellow: #ffeb3b;
+            --card-purple: #9d00ff;
+            --card-lime: #ccff00;
+            --card-orange: #ff6600;
+            --card-red: #ff3333;
+            --card-white: #f8f8f8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden; 
+            overflow-y: hidden;
+            /* DARK MODE COLLECTIBLE DISPLAY WALL */
+            background-color: var(--bg-color);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            color: #f0f0f0;
+            height: 100vh;
+            width: 100vw;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography */
+        .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 1px; }
+        .font-archivo { font-family: 'Archivo Black', sans-serif; }
+        .font-bangers { font-family: 'Bangers', cursive; letter-spacing: 2px; }
+        .font-caveat { font-family: 'Caveat', cursive; }
+
+        /* Structural Layout */
+        .page-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.95) translateY(30px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 120px;
+            padding-top: 40px;
+        }
+        .page-container.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+        }
+
+        .pkg-wrapper {
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            margin: 0 auto;
+            perspective: 1200px;
+            padding: 10px;
+        }
+
+        .pkg-card {
+            background-color: var(--card-color, var(--card-pink));
+            border: 4px solid var(--pkg-shadow);
+            border-radius: 20px;
+            box-shadow: 12px 12px 0px rgba(0,0,0,0.9), 0 0 30px rgba(255,255,255,0.05);
+            padding: 1.5rem 1rem;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out;
+            background-image: radial-gradient(rgba(0,0,0,0.15) 15%, transparent 16%), radial-gradient(rgba(0,0,0,0.15) 15%, transparent 16%);
+            background-size: 8px 8px;
+            background-position: 0 0, 4px 4px;
+            background-blend-mode: multiply;
+        }
+
+        .pkg-hole {
+            width: 45px; height: 12px; background: #000; border-radius: 20px; margin: 0 auto 15px;
+            box-shadow: inset 0 3px 5px rgba(255,255,255,0.2), 0 2px 0 rgba(255,255,255,0.4);
+            position: relative; z-index: 1;
+        }
+
+        .blister-container { position: relative; margin: 15px 0; border-radius: 12px; z-index: 2; }
+        
+        .blister-item {
+            background: #fff; border: 3px solid #111; border-radius: inherit; padding: 15px;
+            position: relative; z-index: 3; box-shadow: inset 4px 4px 0px rgba(0,0,0,0.1);
+        }
+
+        .blister-dome {
+            position: absolute;
+            top: -6px; left: -6px; right: -6px; bottom: -6px;
+            background: var(--plastic-base);
+            border-radius: 16px;
+            pointer-events: none;
+            z-index: 10;
+            box-shadow: 
+                inset 3px 3px 6px var(--plastic-highlight),
+                inset -4px -4px 8px var(--plastic-shadow),
+                6px 6px 15px rgba(0,0,0,0.5);
+            border-top: 2px solid rgba(255,255,255,0.9);
+            border-left: 2px solid rgba(255,255,255,0.9);
+            border-bottom: 2px solid rgba(0,0,0,0.4);
+            border-right: 2px solid rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        .blister-dome::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.5) 45%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0) 70%);
+            transform: rotate(25deg) translateX(calc(var(--tilt-x, 0px) * -1.5)); pointer-events: none;
+        }
+
+        .sticker {
+            position: absolute; z-index: 20; font-family: 'Space Grotesk', sans-serif; font-weight: 900;
+            text-transform: uppercase; border: 2px solid #111; box-shadow: 3px 3px 0px #111;
+            background: #fff; padding: 4px 8px; border-radius: 4px; line-height: 1.1; text-align: center;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); color: #111;
+            backface-visibility: hidden;
+        }
+        .sticker:hover { transform: scale(1.15) rotate(5deg) !important; z-index: 30; }
+
+        .sticker-star {
+            background: var(--card-yellow); width: 70px; height: 70px; display: flex; justify-content: center; align-items: center;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            border: none; box-shadow: none; filter: drop-shadow(3px 3px 0px #111); font-size: 14px; padding-top: 5px;
+        }
+
+        /* --- UPDATED: 2 COLUMN MOBILE GALLERY WALL --- */
+        .gallery-wall {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Mobile: 2 columns */
+            gap: 1rem; /* Smaller gap for mobile */
+            padding: 0 15px; 
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+            justify-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-wall {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Desktop: responsive multi-column */
+                gap: 3rem;
+                padding: 0 40px;
+            }
+        }
+
+        .gallery-item-wrapper {
+            position: relative;
+            width: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .collectible-photo {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+            filter: drop-shadow(0 15px 20px rgba(0,0,0,0.9)) drop-shadow(0 0 12px var(--glow-color, rgba(255,255,255,0.1)));
+            will-change: transform, filter;
+            -webkit-user-drag: none;
+        }
+
+        .gallery-item-wrapper:hover .collectible-photo {
+            transform: scale(1.05) translateY(-5px) rotate(0deg) !important;
+            filter: drop-shadow(0 20px 25px rgba(0,0,0,1)) drop-shadow(0 0 20px var(--glow-color, rgba(255,255,255,0.4)));
+            z-index: 50;
+        }
+
+        #lightbox {
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(8px);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #lightbox.active { opacity: 1; pointer-events: auto; }
+        #lightbox img, #lightbox video {
+            max-width: 90%; max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 0 60px rgba(255,255,255,0.1);
+            transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        #lightbox.active img, #lightbox.active video { transform: scale(1); }
+        .lightbox-close {
+            position: absolute; top: 20px; right: 25px;
+            color: white; font-size: 2.5rem; cursor: pointer; z-index: 10000;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5); transition: transform 0.2s;
+        }
+        .lightbox-close:hover { transform: scale(1.1); }
+
+        .ambient-deco { position: absolute; pointer-events: none; z-index: 0; animation: float-pack 6s ease-in-out infinite; opacity: 0.6; }
+        @keyframes float-pack { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(2deg); } }
+        .anim-float { animation: float-pack 4s ease-in-out infinite; }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        .anim-wiggle { animation: wiggle 2s ease-in-out infinite; }
+
+        .printed-text { 
+            color: #ffffff; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 
+                3px 3px 0px #000,
+                -1px -1px 0 #000,  
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+
+        .blister-input { width: 100%; background: #f0f0f0; border: 3px solid #111; border-radius: 8px; padding: 12px; font-family: 'Space Grotesk', sans-serif; font-weight: 900; text-align: center; box-shadow: inset 3px 3px 0px rgba(0,0,0,0.1); position: relative; z-index: 20; pointer-events: auto; color: #111;}
+        .blister-btn { background: var(--card-cyan); border: 3px solid #111; border-radius: 8px; padding: 12px; width: 100%; font-family: 'Archivo Black', sans-serif; font-size: 1.2rem; text-transform: uppercase; box-shadow: 4px 4px 0px #111; margin-top: 10px; position: relative; z-index: 20; pointer-events: auto; transition: all 0.1s; color:#111; }
+        .blister-btn:active { box-shadow: 0px 0px 0px #111; transform: translate(4px, 4px); }
+
+        .nav-btn { border: 3px solid var(--pkg-shadow); box-shadow: 4px 4px 0px var(--pkg-shadow); transition: all 0.2s ease; }
+        .nav-btn:active:not(:disabled) { transform: translate(4px, 4px); box-shadow: 0px 0px 0px var(--pkg-shadow); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <script>
+        const CONFIG = {
+            targetDate: "2026-11-24T00:00:00", // Ruheen's Birthday
+            password: "ruheen24",
+            musicSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+        };
+
+        // Generating array of 10 images with updated file format
+        const mediaGallery = Array.from({length: 10}, (_, i) => ({
+            type: 'image',
+            src: `img/1 (${i + 1}).png`
+        }));
+    </script>
+
+    <!-- Lightbox Container -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <i class="fa-solid fa-xmark lightbox-close"></i>
+        <img id="lightbox-img" src="" alt="Fullscreen Item">
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="" type="audio/mpeg">
+    </audio>
+
+    <!-- PAGE 0: BIRTHDAY DROP (COUNTDOWN / LOCK) -->
+    <div id="page-0" class="page-container active">
+        <div class="pkg-wrapper anim-float tilt-target">
+            <div class="sticker sticker-star -top-4 -left-4 -rotate-12 z-30">TOP<br>SECRET</div>
+            <div class="sticker bg-[var(--card-lime)] rounded-full w-[60px] h-[60px] flex justify-center items-center font-archivo text-[var(--card-pink)] text-[14px] -right-2 top-20 rotate-12 z-30 flex-col leading-none"><span>ONLY</span><span class="text-xl">1</span></div>
+            <div class="sticker -bottom-4 left-4 rotate-6 z-30 text-xs bg-black text-white border-white">DO NOT OPEN UNTIL 24 NOV</div>
+
+            <div class="pkg-card" style="--card-color: var(--card-orange);">
+                <div class="pkg-hole"></div>
+                
+                <div class="text-center mb-6 mt-2 relative z-20">
+                    <div class="bg-black text-white text-[10px] font-bold inline-block px-3 py-1.5 mb-3 border-2 border-white rounded-full shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">SPECIAL EDITION DROP</div>
+                    <h2 class="font-archivo font-black text-5xl text-white printed-text transform -rotate-2 leading-tight">RUHEEN<br>/ 24</h2>
+                    <p class="text-[11px] font-bold uppercase mt-2 text-black bg-white/70 inline-block px-2 py-0.5 rounded backdrop-blur-sm border border-black/10">Collectible Series • Ages 24+</p>
+                </div>
+
+                <div id="countdown-container" class="mb-6 relative z-10">
+                    <div class="sticker bg-white text-black -top-3 left-1/2 -translate-x-1/2 text-[10px] z-20 shadow-[2px_2px_0px_#111]">UNLOCKS IN ⏳</div>
+                    
+                    <div class="flex justify-between gap-1 w-full pt-2">
+                        <div class="blister-container flex-1 m-0">
+                            <div class="blister-item bg-[var(--card-cyan)] p-2 text-center">
+                                <span id="cd-days" class="font-archivo text-2xl text-black block drop-shadow-[1px_1px_0px_#fff]">00</span>
+                                <span class="text-[8px] font-black uppercase text-black">Days</span>
+                            </div>
+                            <div class="blister-dome"></div>
+                        </div>
+                        <div class="blister-container flex-1 m-0">
+                            <div class="blister-item bg-[var(--card-pink)] p-2 text-center">
+                                <span id="cd-hours" class="font-archivo text-2xl text-white block drop-shadow-[2px_2px_0px_#111]">00</span>
+                                <span class="text-[8px] font-black uppercase text-white">Hrs</span>
+                            </div>
+                            <div class="blister-dome"></div>
+                        </div>
+                        <div class="blister-container flex-1 m-0">
+                            <div class="blister-item bg-[var(--card-lime)] p-2 text-center">
+                                <span id="cd-minutes" class="font-archivo text-2xl text-black block drop-shadow-[1px_1px_0px_#fff]">00</span>
+                                <span class="text-[8px] font-black uppercase text-black">Min</span>
+                            </div>
+                            <div class="blister-dome"></div>
+                        </div>
+                        <div class="blister-container flex-1 m-0">
+                            <div class="blister-item bg-[var(--card-purple)] p-2 text-center">
+                                <span id="cd-seconds" class="font-archivo text-2xl text-white block drop-shadow-[2px_2px_0px_#111]">00</span>
+                                <span class="text-[8px] font-black uppercase text-white">Sec</span>
+                            </div>
+                            <div class="blister-dome"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blister-container mt-2">
+                    <div class="sticker -top-3 -right-2 rotate-12 text-[10px] bg-yellow-300">ACCESS KEY</div>
+                    <div class="blister-item bg-[var(--card-white)] flex flex-col items-center">
+                        <i class="fa-solid fa-lock text-3xl mb-2 text-gray-300"></i>
+                        <input type="password" id="passInput" placeholder="ENTER CODE" class="blister-input mb-2 uppercase">
+                        <p id="errorMsg" class="text-white font-bold text-[10px] opacity-0 transition-opacity uppercase bg-red-600 px-2 rounded mb-1">Error: Try Again</p>
+                        <button onclick="checkPassword()" class="blister-btn">OPEN PACKAGE</button>
+                    </div>
+                    <div class="blister-dome"></div>
+                </div>
+
+                <div class="mt-4 flex justify-between items-end border-t-2 border-black border-dashed pt-2">
+                    <div class="text-[8px] font-black leading-tight text-black">
+                        MFG: 24/11/2002<br>EXP: NEVER<br>MADE WITH 🤍
+                    </div>
+                    <div class="bg-[repeating-linear-gradient(90deg,#111,#111_2px,transparent_2px,transparent_5px,#111_5px,#111_7px,transparent_7px,transparent_9px)] h-[30px] w-full max-w-[120px] border-2 border-white outline outline-2 outline-[#111] mt-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 1: HERO PACKAGE -->
+    <div id="page-1" class="page-container">
+        <div class="pkg-wrapper tilt-target mt-8">
+            <div class="sticker bg-white text-black px-4 py-1 text-lg rounded-full absolute -top-4 -right-2 rotate-12 z-30 shadow-[4px_4px_0px_#111] font-bangers">VIP 🤍</div>
+            
+            <div class="pkg-card" style="--card-color: var(--card-cyan);">
+                <div class="pkg-hole"></div>
+
+                <div class="bg-white border-[3px] border-[var(--card-pink)] text-black text-[10px] p-1 absolute top-10 left-4 -rotate-6 z-10 w-24 font-bold">
+                    <span class="bg-[var(--card-pink)] text-white px-1 block mb-1 border-b-2 border-black">WARNING</span>
+                    CONTENTS EXTREMELY PRECIOUS.
+                </div>
+                
+                <h1 class="font-anton text-[clamp(3.5rem,15vw,6rem)] leading-none text-center text-[#ff1493] printed-text transform -rotate-3 mt-16 mb-4 relative z-10">
+                    RUHEEN
+                </h1>
+                
+                <div class="blister-container">
+                    <div class="blister-item bg-[var(--card-yellow)] flex flex-col items-center p-6 bg-[radial-gradient(circle_at_center,_var(--card-white)_0%,_var(--card-yellow)_100%)]">
+                        <div class="font-caveat text-3xl text-center font-bold text-black transform rotate-2 leading-tight">
+                            "Every moment is special..."
+                        </div>
+                        <div class="mt-4 flex gap-3 text-2xl">
+                            <i class="fa-solid fa-heart text-[#ff1493] anim-wiggle"></i>
+                            <i class="fa-solid fa-star text-black anim-float"></i>
+                            <i class="fa-solid fa-heart text-[#ff1493] anim-wiggle" style="animation-delay: 0.5s"></i>
+                        </div>
+                    </div>
+                    <div class="blister-dome"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: DUA COLLECTION -->
+    <div id="page-2" class="page-container">
+        <div class="pkg-wrapper tilt-target mt-8">
+            <div class="sticker bg-[var(--card-lime)] text-black text-2xl p-2 rounded-full absolute -top-4 -left-4 z-30 transform -rotate-12">
+                <i class="fa-solid fa-moon"></i>
+            </div>
+            
+            <div class="pkg-card" style="--card-color: var(--card-purple);">
+                <div class="pkg-hole bg-white"></div>
+                
+                <h2 class="font-bangers text-4xl text-white text-center tracking-widest mt-2 mb-4 drop-shadow-[3px_3px_0px_#111]">A SPECIAL DUA</h2>
+                
+                <div class="blister-container">
+                    <div class="sticker -right-4 top-1/2 rotate-90 text-[10px] bg-white">COLLECTIBLE #01</div>
+                    <div class="blister-item bg-[var(--card-white)] p-6 text-center">
+                        <i class="fa-solid fa-quote-left text-3xl text-[var(--card-pink)] mb-2 opacity-50"></i>
+                        <p class="font-bold text-base leading-relaxed z-10 relative text-black">
+                            Allah aapki har dua qubool farmaye, aur aapko duniya aur aakhirat ki saari khushiyan ata kare.<br><br>
+                            Khuda kare ki aapke hothon ki hasi kabhi kam na ho, aur aapki zindagi mein sirf barkat aur mohabbat ho.
+                        </p>
+                        <div class="font-caveat text-3xl text-[var(--card-pink)] mt-4 font-black">Ameen. 🤍</div>
+                    </div>
+                    <div class="blister-dome"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: NOTE COLLECTION -->
+    <div id="page-3" class="page-container">
+        <div class="pkg-wrapper tilt-target mt-8">
+            <div class="sticker bg-[var(--card-orange)] text-white px-3 py-1 rounded absolute -top-4 right-4 rotate-6 z-30 text-xl font-bangers">
+                <i class="fa-solid fa-envelope"></i> NOTE
+            </div>
+
+            <div class="pkg-card" style="--card-color: var(--card-lime);">
+                <div class="pkg-hole"></div>
+                
+                <div class="blister-container mt-8">
+                    <div class="blister-item bg-white p-6 pb-12">
+                        <h2 class="font-caveat text-3xl text-[var(--card-pink)] mb-4 font-black">To My Dearest Ruheen,</h2>
+                        <div class="space-y-3 text-black font-bold leading-snug text-sm">
+                            <p>Words fall short when I try to express how special you are to me. Your presence makes everything brighter, and your smile is literally contagious.</p>
+                            <p>On this beautiful occasion of your birthday, I just wanted to remind you how much you are loved. You are not just a friend; you are a vibe, a comfort zone, and a sister.</p>
+                            <p>May this 24th of November bring you the magic you truly deserve.</p>
+                        </div>
+                        <div class="absolute bottom-4 right-4 text-right">
+                            <p class="text-[10px] font-black text-gray-500 uppercase">With all the love,</p>
+                            <p class="font-bangers text-2xl text-black drop-shadow-[1px_1px_0px_var(--card-cyan)]">Taniya</p>
+                        </div>
+                    </div>
+                    <div class="blister-dome"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4: GALLERY 1 -->
+    <div id="page-4" class="page-container">
+        <i class="fa-solid fa-star ambient-deco text-[var(--card-yellow)] text-3xl top-[10%] left-[10%] rotate-12"></i>
+        <i class="fa-solid fa-sparkles ambient-deco text-[var(--card-cyan)] text-2xl bottom-[20%] right-[10%] -rotate-6"></i>
+
+        <div class="text-center mb-8 relative max-w-sm mx-auto z-10">
+            <h2 class="inline-block bg-[var(--card-yellow)] text-black px-6 py-2 border-4 border-black shadow-[6px_6px_0px_#111] text-3xl font-bangers transform -rotate-2">
+                MEMORY COLLECTION #1
+            </h2>
+        </div>
+        
+        <div id="gallery-grid-1" class="gallery-wall relative z-10"></div>
+    </div>
+
+    <!-- PAGE 5: FLIRTY PACK 1 -->
+    <div id="page-5" class="page-container">
+        <div class="pkg-wrapper tilt-target mt-8">
+            <div class="sticker bg-[var(--card-red)] text-white px-3 py-1 rounded absolute -top-4 -left-4 -rotate-6 z-30 font-black">
+                <i class="fa-solid fa-fire"></i> CAUTION
+            </div>
+            
+            <div class="pkg-card" style="--card-color: var(--card-orange);">
+                <div class="pkg-hole"></div>
+                
+                <div class="blister-container mt-8">
+                    <div class="sticker -right-4 top-1/2 rotate-90 text-[10px] bg-yellow-300">EXTREME HEAT</div>
+                    <div class="blister-item bg-[var(--card-white)] p-6 text-center">
+                        <h2 class="font-bangers text-3xl text-[var(--card-red)] mb-4 drop-shadow-[1px_1px_0px_#111] transform -rotate-2">FIRE HAZARD!</h2>
+                        <p class="font-bold text-base leading-relaxed z-10 relative text-black">
+                            Is it getting hot in here, or is it just you turning 24? 🔥<br><br>
+                            They say global warming is real, but honestly, I didn't know you were the main cause of it. Drop-dead gorgeous.
+                        </p>
+                    </div>
+                    <div class="blister-dome"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 6: POETRY PACK -->
+    <div id="page-6" class="page-container">
+        <div class="pkg-wrapper tilt-target mt-8">
+            <div class="sticker bg-white text-black px-4 py-1 rounded-full absolute -top-4 left-4 -rotate-12 z-30 text-lg font-bangers">POETRY ✨</div>
+
+            <div class="pkg-card" style="--card-color: var(--card-pink);">
+                <div class="pkg-hole bg-white"></div>
+                
+                <div class="blister-container mt-10">
+                    <div class="blister-item bg-[var(--card-yellow)] p-8 text-center relative overflow-hidden">
+                        <i class="fa-solid fa-heart text-6xl text-[var(--card-pink)] opacity-20 absolute -top-4 -right-4 z-0"></i>
+                        
+                        <p class="text-2xl text-black font-black leading-loose font-caveat relative z-10 transform -rotate-2">
+                            "Chand se pyari chandni,<br>
+                            Chandni se pyari raat,<br>
+                            Raat se pyari zindagi,<br>
+                            Aur zindagi se pyari aap..."
+                        </p>
+                    </div>
+                    <div class="blister-dome"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 7: VIDEO PACK -->
+    <div id="page-7" class="page-container">
+        <div class="pkg-wrapper tilt-target mt-4">
+            <div class="sticker bg-[var(--card-cyan)] text-black px-3 py-1 rounded absolute -top-6 right-0 rotate-12 z-30 font-black shadow-[4px_4px_0px_#111]">
+                DIRECTOR'S CUT 🎬
+            </div>
+            
+            <div class="pkg-card" style="--card-color: var(--card-purple);">
+                <div class="pkg-hole bg-white"></div>
+                
+                <div class="blister-container mt-6">
+                    <div class="blister-item bg-black p-2 relative">
+                        <!-- Portrait Video Element -->
+                        <video id="bday-video" src="video.mp4" playsinline loop class="w-full h-auto rounded-lg shadow-inner" style="max-height: 60vh; object-fit: cover;"></video>
+                        <div class="absolute bottom-4 left-0 w-full text-center pointer-events-none">
+                            <span class="bg-black/70 text-white font-archivo text-[10px] px-2 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm border border-white/20">Now Playing</span>
+                        </div>
+                    </div>
+                    <!-- Slight less opacity on dome so video is clearer -->
+                    <div class="blister-dome" style="background: rgba(255,255,255,0.05);"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 8: GALLERY 2 -->
+    <div id="page-8" class="page-container">
+        <i class="fa-solid fa-heart ambient-deco text-[var(--card-pink)] text-3xl top-[15%] right-[15%] rotate-[-12deg]"></i>
+        <i class="fa-solid fa-certificate ambient-deco text-[var(--card-lime)] text-xl bottom-[30%] left-[8%] rotate-[15deg]"></i>
+
+        <div class="text-center mb-8 relative max-w-sm mx-auto z-10">
+            <h2 class="inline-block bg-[var(--card-cyan)] text-black px-6 py-2 border-4 border-black shadow-[6px_6px_0px_#111] text-3xl font-bangers transform rotate-2">
+                MEMORY COLLECTION #2
+            </h2>
+        </div>
+        
+        <div id="gallery-grid-2" class="gallery-wall relative z-10"></div>
+    </div>
+
+    <!-- PAGE 9: FLIRTY PACK 2 -->
+    <div id="page-9" class="page-container">
+        <div class="pkg-wrapper tilt-target mt-8">
+            <div class="sticker bg-black text-[var(--card-lime)] px-3 py-1 rounded absolute -top-4 right-4 rotate-12 z-30 font-black">
+                100% LETHAL
+            </div>
+            
+            <div class="pkg-card" style="--card-color: var(--card-yellow);">
+                <div class="pkg-hole bg-white"></div>
+                
+                <div class="blister-container mt-8">
+                    <div class="blister-item bg-[var(--card-cyan)] p-6 text-center">
+                        <i class="fa-solid fa-triangle-exclamation text-4xl text-black mb-3"></i>
+                        <p class="font-bold text-base leading-relaxed z-10 relative text-black">
+                            They should probably put a warning label on you.<br><br>
+                            Highly addictive, completely mesmerizing, and illegally cute. Proceed with extreme caution. 😉
+                        </p>
+                    </div>
+                    <div class="blister-dome"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 10: FINALE EDITION -->
+    <div id="page-10" class="page-container">
+        <div class="pkg-wrapper tilt-target mt-4">
+            <div class="sticker sticker-star -top-8 -left-4 z-30 bg-[var(--card-cyan)] scale-125">OMG!</div>
+            <div class="sticker bg-white text-black px-3 py-1 rounded absolute top-4 right-4 rotate-12 z-30 font-black">#24</div>
+
+            <div class="pkg-card" style="--card-color: var(--card-orange); background-image: linear-gradient(45deg, var(--card-pink), var(--card-orange));">
+                <div class="pkg-hole bg-white"></div>
+                
+                <div class="blister-container mt-6">
+                    <div class="blister-item bg-white p-6 text-center">
+                        <h1 class="text-[clamp(2.5rem,10vw,4rem)] font-bangers text-black transform -rotate-2 mb-0 leading-none">HAPPY</h1>
+                        <h1 class="text-[clamp(2.5rem,10vw,4rem)] font-bangers text-[var(--card-cyan)] transform rotate-2 drop-shadow-[2px_2px_0px_#111] mb-2 leading-none">BIRTHDAY!</h1>
+                        
+                        <div class="bg-black text-[var(--card-lime)] font-anton text-4xl inline-block px-4 py-2 mt-2 transform -rotate-1 shadow-[4px_4px_0px_#fff]">RUHEEN</div>
+                        
+                        <p class="text-black font-bold mt-6 text-sm">Here's to celebrating you today and always. 🎉</p>
+                    </div>
+                    <div class="blister-dome"></div>
+                </div>
+
+                <div class="blister-container mt-4">
+                    <button onclick="fireConfetti()" class="blister-btn bg-[var(--card-lime)] text-black !py-4 font-bangers text-2xl tracking-widest relative z-20">
+                        TAP FOR MAGIC ✨
+                    </button>
+                    <div class="blister-dome"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION (HIDDEN INITIALLY) -->
+    <div id="nav-container" class="fixed bottom-0 left-0 w-full p-4 flex justify-between items-center z-[100] hidden bg-gradient-to-t from-black to-transparent pointer-events-none">
+        <button id="prevBtn" onclick="navigate(-1)" class="nav-btn w-12 h-12 bg-white text-black border-4 border-black rounded-full flex items-center justify-center text-xl disabled:opacity-50 disabled:pointer-events-none active:bg-gray-200 pointer-events-auto">
+            <i class="fa-solid fa-caret-left"></i>
+        </button>
+        
+        <div class="flex space-x-1.5 bg-white px-3 py-2 rounded-full border-4 border-black shadow-[4px_4px_0px_#111] pointer-events-auto" id="page-indicators">
+            <!-- Dots generated by JS -->
+        </div>
+
+        <button id="nextBtn" onclick="navigate(1)" class="nav-btn w-12 h-12 bg-[var(--card-lime)] text-black border-4 border-black rounded-full flex items-center justify-center text-xl disabled:opacity-50 disabled:pointer-events-none active:bg-yellow-400 pointer-events-auto">
+            <i class="fa-solid fa-caret-right"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const totalPages = 11; // Updated to account for 11 total pages
+        const videoPageIndex = 7; // The index of the video page
+        const audio = document.getElementById('bgMusic');
+        audio.src = CONFIG.musicSrc;
+
+        function checkPassword() {
+            const input = document.getElementById('passInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+            
+            if(input.toLowerCase().trim() === CONFIG.password) {
+                audio.play().catch(e => console.log("Audio play failed, user interaction needed.", e));
+                document.getElementById('nav-container').classList.remove('hidden');
+                navigate(1);
+            } else {
+                errorMsg.classList.remove('opacity-0');
+                const inpEl = document.getElementById('passInput');
+                inpEl.classList.add('bg-red-200', 'border-red-600');
+                inpEl.style.transform = 'translate(-5px, 0)';
+                setTimeout(() => inpEl.style.transform = 'translate(5px, 0)', 100);
+                setTimeout(() => inpEl.style.transform = 'translate(-5px, 0)', 200);
+                setTimeout(() => inpEl.style.transform = 'translate(0, 0)', 300);
+
+                setTimeout(() => {
+                    errorMsg.classList.add('opacity-0');
+                    inpEl.classList.remove('bg-red-200', 'border-red-600');
+                }, 2000);
+            }
+        }
+
+        document.getElementById('passInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        function navigate(direction) {
+            if (currentPage + direction < 1 || currentPage + direction >= totalPages) return;
+            
+            document.getElementById(`page-${currentPage}`).classList.remove('active');
+            currentPage += direction;
+            document.getElementById(`page-${currentPage}`).classList.add('active');
+            
+            updateNavUI();
+            handleMediaPlayback();
+
+            if(currentPage === totalPages - 1) setTimeout(fireConfetti, 500);
+        }
+
+        function handleMediaPlayback() {
+            const vid = document.getElementById('bday-video');
+            
+            // Auto start video and mute background music when on video page
+            if(currentPage === videoPageIndex) {
+                audio.pause();
+                vid.play().catch(e => console.log('Video autoplay requires interaction/unmuting on some browsers'));
+            } else {
+                vid.pause();
+                // Resume bg music if we left the video page and are past the lock screen
+                if(currentPage > 0) {
+                    audio.play().catch(e => console.log(e));
+                }
+            }
+        }
+
+        function updateNavUI() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const indicators = document.getElementById('page-indicators');
+            
+            prevBtn.disabled = (currentPage === 1);
+            nextBtn.disabled = (currentPage === totalPages - 1);
+
+            let dotsHTML = '';
+            // Generate dots for all pages except lock screen (pages 1 to 10)
+            for(let i=1; i<totalPages; i++) {
+                if(i === currentPage) {
+                    dotsHTML += `<div class="w-2 h-2 bg-[var(--card-pink)] border border-black rounded-full transform scale-125"></div>`;
+                } else {
+                    dotsHTML += `<div class="w-2 h-2 bg-gray-400 border border-black rounded-full"></div>`;
+                }
+            }
+            indicators.innerHTML = dotsHTML;
+        }
+
+        function renderGallery() {
+            const grid1 = document.getElementById('gallery-grid-1');
+            const grid2 = document.getElementById('gallery-grid-2');
+            
+            const mid = Math.ceil(mediaGallery.length / 2);
+            const half1 = mediaGallery.slice(0, mid);
+            const half2 = mediaGallery.slice(mid);
+
+            const glows = ['rgba(0,255,255,0.3)', 'rgba(255,20,147,0.3)', 'rgba(255,235,59,0.2)', 'rgba(204,255,0,0.2)', 'rgba(157,0,255,0.3)'];
+            const rotations = ['rotate-[-3deg]', 'rotate-[2deg]', 'rotate-[-1deg]', 'rotate-[3deg]', 'rotate-[-2deg]'];
+
+            function createItemHTML(item, index) {
+                const placeholderUrl = `https://placehold.co/400x550/222/fff?text=Package+${index + 1}`;
+                const randGlow = glows[index % glows.length];
+                const randRot = rotations[index % rotations.length];
+                
+                let content = '';
+                if (item.type === 'image') {
+                    content = `<img src="${item.src}" alt="Collectible Package" 
+                                    onerror="this.onerror=null; this.src='${placeholderUrl}';" 
+                                    class="collectible-photo" 
+                                    onclick="openLightbox(this.src)">`;
+                }
+
+                if(!content) return '';
+
+                return `
+                    <div class="gallery-item-wrapper ${randRot} tilt-target" style="--glow-color: ${randGlow};">
+                        ${content}
+                    </div>`;
+            }
+
+            grid1.innerHTML = half1.map((item, idx) => createItemHTML(item, idx)).join('');
+            grid2.innerHTML = half2.map((item, idx) => createItemHTML(item, idx + mid)).join('');
+        }
+
+        renderGallery();
+
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('lightbox-img').src = '';
+            }, 300);
+        }
+
+        function startCountdown() {
+            const target = new Date(CONFIG.targetDate).getTime();
+            
+            function update() {
+                const now = new Date().getTime();
+                const distance = target - now;
+
+                if (distance < 0) {
+                    const cdContainer = document.getElementById("countdown-container");
+                    if(cdContainer) cdContainer.style.display = 'none';
+                    return; 
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("cd-days").innerText = days < 10 ? '0'+days : days;
+                document.getElementById("cd-hours").innerText = hours < 10 ? '0'+hours : hours;
+                document.getElementById("cd-minutes").innerText = minutes < 10 ? '0'+minutes : minutes;
+                document.getElementById("cd-seconds").innerText = seconds < 10 ? '0'+seconds : seconds;
+            }
+            
+            update();
+            setInterval(update, 1000);
+        }
+        
+        startCountdown();
+
+        function fireConfetti() {
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+                    colors: ['#ff1493', '#00ffff', '#ccff00', '#9d00ff', '#ffffff', '#111111']
+                }));
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+                    colors: ['#ff1493', '#00ffff', '#ccff00', '#9d00ff', '#ffffff', '#111111']
+                }));
+            }, 250);
+        }
+
+        function handleTilt(clientX, clientY) {
+            const activePage = document.querySelector('.page-container.active');
+            if(!activePage) return;
+
+            const cards = activePage.querySelectorAll('.tilt-target');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if(rect.top > window.innerHeight || rect.bottom < 0) return;
+                
+                const x = clientX - rect.left - rect.width/2;
+                const y = clientY - rect.top - rect.height/2;
+                
+                const rotateX = Math.max(-10, Math.min(10, -y / 20));
+                const rotateY = Math.max(-10, Math.min(10, x / 20));
+                
+                if(card.classList.contains('pkg-wrapper')) {
+                    card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    card.style.setProperty('--tilt-x', `${x}px`);
+                    card.style.setProperty('--tilt-y', `${y}px`);
+                } else if (card.classList.contains('gallery-item-wrapper')) {
+                    card.style.setProperty('--tilt-x', `${x/10}deg`);
+                    card.style.setProperty('--tilt-y', `${y/10}deg`);
+                }
+            });
+        }
+
+        function resetTilt() {
+            document.querySelectorAll('.tilt-target').forEach(card => {
+                if(card.classList.contains('pkg-wrapper')) {
+                    card.style.transform = `perspective(1200px) rotateX(0) rotateY(0)`;
+                    card.style.setProperty('--tilt-x', `0px`);
+                    card.style.setProperty('--tilt-y', `0px`);
+                }
+            });
+        }
+
+        // Mouse Events (Desktop)
+        document.addEventListener('mousemove', (e) => handleTilt(e.clientX, e.clientY));
+        document.addEventListener('mouseleave', resetTilt);
+
+        // Touch Events (Mobile)
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                handleTilt(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+        document.addEventListener('touchend', resetTilt);
+        document.addEventListener('touchcancel', resetTilt);
+    </script>
+</body>
+</html>

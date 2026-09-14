@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday Ruheen ✨ - Limited Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Space+Grotesk:wght@400;700;900&family=Bangers&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Space+Grotesk:wght@400;700;900&family=Bangers&family=Caveat:wght@700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
@@ -32,9 +32,10 @@
             font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden; 
             overflow-y: hidden;
-            /* DARK MODE COLLECTIBLE DISPLAY WALL */
-            background-color: var(--bg-color);
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            /* Updated Animated Gradient Background */
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #0d0d0d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: #f0f0f0;
             height: 100vh;
             width: 100vw;
@@ -42,13 +43,19 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         /* Typography */
         .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 1px; }
         .font-archivo { font-family: 'Archivo Black', sans-serif; }
         .font-bangers { font-family: 'Bangers', cursive; letter-spacing: 2px; }
         .font-caveat { font-family: 'Caveat', cursive; }
+        .font-urdu { font-family: 'Noto Nastaliq Urdu', serif; line-height: 2; }
 
-        /* Structural Layout */
         .page-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -62,6 +69,7 @@
             overflow-x: hidden;
             padding-bottom: 120px;
             padding-top: 40px;
+            z-index: 10;
         }
         .page-container.active {
             opacity: 1;
@@ -71,8 +79,9 @@
 
         .pkg-wrapper {
             position: relative;
-            width: 90%;
-            max-width: 400px;
+            width: 95%;
+            /* Increased max-width to accommodate new longer text content */
+            max-width: 480px;
             margin: 0 auto;
             perspective: 1200px;
             padding: 10px;
@@ -145,11 +154,26 @@
             border: none; box-shadow: none; filter: drop-shadow(3px 3px 0px #111); font-size: 14px; padding-top: 5px;
         }
 
-        /* --- UPDATED: 2 COLUMN MOBILE GALLERY WALL --- */
+        /* Falling Background Icons */
+        .falling-icon {
+            position: fixed;
+            top: -10vh;
+            z-index: 0;
+            animation: fall linear infinite;
+            pointer-events: none;
+            filter: drop-shadow(0px 0px 5px rgba(255,255,255,0.2));
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
         .gallery-wall {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Mobile: 2 columns */
-            gap: 1rem; /* Smaller gap for mobile */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
             padding: 0 15px; 
             max-width: 1200px;
             margin: 0 auto;
@@ -159,7 +183,7 @@
 
         @media (min-width: 768px) {
             .gallery-wall {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Desktop: responsive multi-column */
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
                 gap: 3rem;
                 padding: 0 40px;
             }
@@ -238,8 +262,8 @@
         .nav-btn:active:not(:disabled) { transform: translate(4px, 4px); box-shadow: 0px 0px 0px var(--pkg-shadow); }
 
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -251,14 +275,14 @@
             musicSrc: "img/LXNGVX, Warriyo - Mortals Funk Remix (Official Music).mp3" 
         };
 
-        // Generating array of 10 images with updated file format
         const mediaGallery = Array.from({length: 10}, (_, i) => ({
             type: 'image',
             src: `img/1 (${i + 1}).png`
         }));
     </script>
 
-    <!-- Lightbox Container -->
+    <div id="falling-icons-container"></div>
+
     <div id="lightbox" onclick="closeLightbox()">
         <i class="fa-solid fa-xmark lightbox-close"></i>
         <img id="lightbox-img" src="" alt="Fullscreen Item">
@@ -348,9 +372,9 @@
             <div class="pkg-card" style="--card-color: var(--card-cyan);">
                 <div class="pkg-hole"></div>
 
-                <div class="bg-white border-[3px] border-[var(--card-pink)] text-black text-[10px] p-1 absolute top-10 left-4 -rotate-6 z-10 w-24 font-bold">
-                    <span class="bg-[var(--card-pink)] text-white px-1 block mb-1 border-b-2 border-black">WARNING</span>
-                    CONTENTS EXTREMELY PRECIOUS.
+                <div class="bg-white border-[3px] border-[var(--card-pink)] text-black text-[10px] p-1 absolute top-10 left-2 -rotate-6 z-10 w-28 font-bold">
+                    <span class="bg-[var(--card-pink)] text-white px-1 block mb-1 border-b-2 border-black text-center">A LITTLE CELEBRATION</span>
+                    FOR SOMEONE VERY SPECIAL.
                 </div>
                 
                 <h1 class="font-anton text-[clamp(3.5rem,15vw,6rem)] leading-none text-center text-[#ff1493] printed-text transform -rotate-3 mt-16 mb-4 relative z-10">
@@ -359,8 +383,8 @@
                 
                 <div class="blister-container">
                     <div class="blister-item bg-[var(--card-yellow)] flex flex-col items-center p-6 bg-[radial-gradient(circle_at_center,_var(--card-white)_0%,_var(--card-yellow)_100%)]">
-                        <div class="font-caveat text-3xl text-center font-bold text-black transform rotate-2 leading-tight">
-                            "Every moment is special..."
+                        <div class="font-caveat text-2xl text-center font-bold text-black transform rotate-2 leading-tight">
+                            “Another beautiful year begins, filled with love, laughter, and moments worth remembering.”
                         </div>
                         <div class="mt-4 flex gap-3 text-2xl">
                             <i class="fa-solid fa-heart text-[#ff1493] anim-wiggle"></i>
@@ -376,7 +400,7 @@
 
     <!-- PAGE 2: DUA COLLECTION -->
     <div id="page-2" class="page-container">
-        <div class="pkg-wrapper tilt-target mt-8">
+        <div class="pkg-wrapper tilt-target mt-2">
             <div class="sticker bg-[var(--card-lime)] text-black text-2xl p-2 rounded-full absolute -top-4 -left-4 z-30 transform -rotate-12">
                 <i class="fa-solid fa-moon"></i>
             </div>
@@ -384,15 +408,18 @@
             <div class="pkg-card" style="--card-color: var(--card-purple);">
                 <div class="pkg-hole bg-white"></div>
                 
-                <h2 class="font-bangers text-4xl text-white text-center tracking-widest mt-2 mb-4 drop-shadow-[3px_3px_0px_#111]">A SPECIAL DUA</h2>
+                <h2 class="font-bangers text-3xl text-white text-center tracking-widest mt-1 mb-2 drop-shadow-[3px_3px_0px_#111]">A SPECIAL DUA</h2>
                 
                 <div class="blister-container">
-                    <div class="sticker -right-4 top-1/2 rotate-90 text-[10px] bg-white">COLLECTIBLE #01</div>
-                    <div class="blister-item bg-[var(--card-white)] p-6 text-center">
-                        <i class="fa-solid fa-quote-left text-3xl text-[var(--card-pink)] mb-2 opacity-50"></i>
-                        <p class="font-bold text-base leading-relaxed z-10 relative text-black">
-                            Allah aapki har dua qubool farmaye, aur aapko duniya aur aakhirat ki saari khushiyan ata kare.<br><br>
-                            Khuda kare ki aapke hothon ki hasi kabhi kam na ho, aur aapki zindagi mein sirf barkat aur mohabbat ho.
+                    <div class="sticker -right-4 top-1/2 rotate-90 text-[9px] bg-white text-black px-2">FOR YOUR BEAUTIFUL YEAR AHEAD</div>
+                    <div class="blister-item bg-[var(--card-white)] p-5 pb-6 text-center">
+                        <i class="fa-solid fa-quote-left text-2xl text-[var(--card-pink)] mb-2 opacity-50 block"></i>
+                        <p class="font-bold text-[13px] leading-relaxed z-10 relative text-black text-left">
+                            May Allah accept every sincere dua in your heart, bless you with endless happiness, and fill every chapter of your life with peace, love, and barakah.<br><br>
+                            May your smile always remain bright, may your heart always find reasons to be grateful, and may every dream you hold close to your heart find its way to becoming a beautiful reality.<br><br>
+                            May Allah protect you from every hardship, surround you with people who genuinely love and value you, and bless you with good health, beautiful memories, and countless moments worth cherishing.<br><br>
+                            May this new year of your life bring more laughter, more love, more blessings, and everything your heart quietly wishes for.<br><br>
+                            May Allah keep you happy, protected, and blessed — today and always.
                         </p>
                         <div class="font-caveat text-3xl text-[var(--card-pink)] mt-4 font-black">Ameen. 🤍</div>
                     </div>
@@ -459,9 +486,11 @@
                     <div class="sticker -right-4 top-1/2 rotate-90 text-[10px] bg-yellow-300">EXTREME HEAT</div>
                     <div class="blister-item bg-[var(--card-white)] p-6 text-center">
                         <h2 class="font-bangers text-3xl text-[var(--card-red)] mb-4 drop-shadow-[1px_1px_0px_#111] transform -rotate-2">FIRE HAZARD!</h2>
-                        <p class="font-bold text-base leading-relaxed z-10 relative text-black">
-                            Is it getting hot in here, or is it just you turning 24? 🔥<br><br>
-                            They say global warming is real, but honestly, I didn't know you were the main cause of it. Drop-dead gorgeous.
+                        <p class="font-bold text-sm leading-relaxed z-10 relative text-black">
+                            Two birthdays. One unforgettable date. 🔥<br><br>
+                            24th was already a special day, but then it gave us two reasons to celebrate — Taniya & Ruheen.<br><br>
+                            Some dates are meant to be remembered, and some people make them impossible to forget. ✨<br><br>
+                            So yes, if 24th feels a little more special, now you know exactly why. ❤️
                         </p>
                     </div>
                     <div class="blister-dome"></div>
@@ -499,7 +528,7 @@
     <div id="page-7" class="page-container">
         <div class="pkg-wrapper tilt-target mt-4">
             <div class="sticker bg-[var(--card-cyan)] text-black px-3 py-1 rounded absolute -top-6 right-0 rotate-12 z-30 font-black shadow-[4px_4px_0px_#111]">
-                DIRECTOR'S CUT 🎬
+                TWINS BIRTHDAY 🎬
             </div>
             
             <div class="pkg-card" style="--card-color: var(--card-purple);">
@@ -560,27 +589,32 @@
 
     <!-- PAGE 10: FINALE EDITION -->
     <div id="page-10" class="page-container">
-        <div class="pkg-wrapper tilt-target mt-4">
-            <div class="sticker sticker-star -top-8 -left-4 z-30 bg-[var(--card-cyan)] scale-125">OMG!</div>
-            <div class="sticker bg-white text-black px-3 py-1 rounded absolute top-4 right-4 rotate-12 z-30 font-black">#24</div>
+        <div class="pkg-wrapper tilt-target mt-1">
+            <div class="sticker sticker-star -top-6 -left-4 z-30 bg-[var(--card-cyan)] scale-110">OMG!</div>
+            <div class="sticker bg-white text-black px-3 py-1 rounded absolute top-2 right-4 rotate-12 z-30 font-black">#24</div>
 
             <div class="pkg-card" style="--card-color: var(--card-orange); background-image: linear-gradient(45deg, var(--card-pink), var(--card-orange));">
                 <div class="pkg-hole bg-white"></div>
                 
-                <div class="blister-container mt-6">
-                    <div class="blister-item bg-white p-6 text-center">
-                        <h1 class="text-[clamp(2.5rem,10vw,4rem)] font-bangers text-black transform -rotate-2 mb-0 leading-none">HAPPY</h1>
-                        <h1 class="text-[clamp(2.5rem,10vw,4rem)] font-bangers text-[var(--card-cyan)] transform rotate-2 drop-shadow-[2px_2px_0px_#111] mb-2 leading-none">BIRTHDAY!</h1>
+                <div class="blister-container mt-4">
+                    <div class="blister-item bg-white p-5 text-center">
+                        <h1 class="text-[clamp(2.5rem,8vw,3.5rem)] font-bangers text-black transform -rotate-2 mb-0 leading-none">HAPPY</h1>
+                        <h1 class="text-[clamp(2.5rem,8vw,3.5rem)] font-bangers text-[var(--card-cyan)] transform rotate-2 drop-shadow-[2px_2px_0px_#111] mb-1 leading-none">BIRTHDAY!</h1>
                         
-                        <div class="bg-black text-[var(--card-lime)] font-anton text-4xl inline-block px-4 py-2 mt-2 transform -rotate-1 shadow-[4px_4px_0px_#fff]">RUHEEN</div>
+                        <div class="bg-black text-[var(--card-lime)] font-anton text-3xl inline-block px-4 py-1 mt-1 transform -rotate-1 shadow-[4px_4px_0px_#fff]">RUHEEN</div>
                         
-                        <p class="text-black font-bold mt-6 text-sm">Here's to celebrating you today and always. 🎉</p>
+                        <div class="text-black font-bold mt-4 text-[13px] leading-relaxed">
+                            <p>Today is all about celebrating you, your beautiful heart, your lovely smile, and all the happiness you bring along. 🎉</p>
+                            <p class="font-urdu text-[15px] mt-2 mb-2" dir="rtl">آپ کی مسکراہٹ ہمیشہ یوں ہی قائم رہے، آپ کی ہر دعا قبول ہو، اور زندگی کا ہر نیا دن آپ کے لیے خوشیوں اور محبتوں سے بھرا ہو۔ 🤍</p>
+                            <p>May this year bring you countless reasons to smile, beautiful memories to cherish, and dreams that turn into reality. ✨</p>
+                            <p class="font-urdu text-[15px] mt-2" dir="rtl">آپ کی زندگی میں ہمیشہ سکون، محبت، برکت اور بے شمار خوشیاں رہیں۔ اللہ آپ کو ہر قدم پر کامیابی عطا فرمائے۔ آمین۔ 🤲🏻</p>
+                        </div>
                     </div>
                     <div class="blister-dome"></div>
                 </div>
 
-                <div class="blister-container mt-4">
-                    <button onclick="fireConfetti()" class="blister-btn bg-[var(--card-lime)] text-black !py-4 font-bangers text-2xl tracking-widest relative z-20">
+                <div class="blister-container mt-2">
+                    <button onclick="fireConfetti()" class="blister-btn bg-[var(--card-lime)] text-black !py-3 font-bangers text-2xl tracking-widest relative z-20">
                         TAP FOR MAGIC ✨
                     </button>
                     <div class="blister-dome"></div>
@@ -606,10 +640,40 @@
 
     <script>
         let currentPage = 0;
-        const totalPages = 11; // Updated to account for 11 total pages
-        const videoPageIndex = 7; // The index of the video page
+        const totalPages = 11;
+        const videoPageIndex = 7;
         const audio = document.getElementById('bgMusic');
         audio.src = CONFIG.musicSrc;
+
+        // Create falling festive icons in the background
+        function createFallingIcons() {
+            const icons = ['fa-cake-candles', 'fa-gift', 'fa-star', 'fa-heart', 'fa-champagne-glasses', 'fa-music'];
+            const container = document.getElementById('falling-icons-container');
+            const colors = ['rgba(255,20,147,0.35)', 'rgba(0,255,255,0.35)', 'rgba(255,235,59,0.3)', 'rgba(204,255,0,0.3)', 'rgba(157,0,255,0.35)'];
+
+            // Generate 35 falling elements
+            for (let i = 0; i < 35; i++) {
+                let iEl = document.createElement('i');
+                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+                iEl.className = `fa-solid ${randomIcon} falling-icon`;
+                
+                // Random position, size, duration, and delay
+                const left = Math.random() * 100;
+                const size = Math.random() * 20 + 12; // 12px to 32px
+                const duration = Math.random() * 12 + 10; // 10s to 22s
+                const delay = Math.random() * -20; // negative delay to start immediately
+                
+                iEl.style.left = `${left}vw`;
+                iEl.style.fontSize = `${size}px`;
+                iEl.style.animationDuration = `${duration}s`;
+                iEl.style.animationDelay = `${delay}s`;
+                iEl.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+                container.appendChild(iEl);
+            }
+        }
+
+        window.addEventListener('load', createFallingIcons);
 
         function checkPassword() {
             const input = document.getElementById('passInput').value;
@@ -655,13 +719,11 @@
         function handleMediaPlayback() {
             const vid = document.getElementById('bday-video');
             
-            // Auto start video and mute background music when on video page
             if(currentPage === videoPageIndex) {
                 audio.pause();
                 vid.play().catch(e => console.log('Video autoplay requires interaction/unmuting on some browsers'));
             } else {
                 vid.pause();
-                // Resume bg music if we left the video page and are past the lock screen
                 if(currentPage > 0) {
                     audio.play().catch(e => console.log(e));
                 }
@@ -677,7 +739,6 @@
             nextBtn.disabled = (currentPage === totalPages - 1);
 
             let dotsHTML = '';
-            // Generate dots for all pages except lock screen (pages 1 to 10)
             for(let i=1; i<totalPages; i++) {
                 if(i === currentPage) {
                     dotsHTML += `<div class="w-2 h-2 bg-[var(--card-pink)] border border-black rounded-full transform scale-125"></div>`;

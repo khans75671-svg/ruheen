@@ -3,44 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday Ruheen ✨ - Limited Edition</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Space+Grotesk:wght@400;700;900&family=Bangers&family=Caveat:wght@700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <title>Happy Birthday Ruheen ✨</title>
     
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@300;400;600&family=Noto+Nastaliq+Urdu:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#FDFBF7',
+                        paper: '#F9F5F0',
+                        rose: '#A32A33',
+                        roselight: '#B83B44',
+                        charcoal: '#3A3A3A',
+                        muted: '#77706B',
+                        beige: '#EEDECB',
+                        pinksoft: '#F4E5E5',
+                        border: '#E8DDD3',
+                        white: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        hand: ['Caveat', 'cursive'],
+                        urdu: ['Noto Nastaliq Urdu', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         :root {
-            --bg-color: #0d0d0d;
-            --pkg-shadow: #000000;
-            --plastic-highlight: rgba(255, 255, 255, 0.8);
-            --plastic-shadow: rgba(0, 0, 0, 0.4);
-            --plastic-base: rgba(255, 255, 255, 0.1);
-            --card-pink: #ff1493;
-            --card-cyan: #00ffff;
-            --card-yellow: #ffeb3b;
-            --card-purple: #9d00ff;
-            --card-lime: #ccff00;
-            --card-orange: #ff6600;
-            --card-red: #ff3333;
-            --card-white: #f8f8f8;
+            --bg: #FDFBF7;
+            --paper: #F9F5F0;
+            --rose: #A32A33;
+            --charcoal: #3A3A3A;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden; 
-            overflow-y: hidden;
-            /* Updated Animated Gradient Background */
-            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #0d0d0d);
+            /* Beautiful Animated Pinkish-Cream Gradient */
+            background: linear-gradient(135deg, #fdfbf7 0%, #fce6e6 50%, #faecec 100%);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            color: #f0f0f0;
-            height: 100vh;
-            width: 100vw;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            color: var(--charcoal);
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: pan-y;
         }
 
         @keyframes gradientBG {
@@ -49,804 +70,1088 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Typography */
-        .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 1px; }
-        .font-archivo { font-family: 'Archivo Black', sans-serif; }
-        .font-bangers { font-family: 'Bangers', cursive; letter-spacing: 2px; }
-        .font-caveat { font-family: 'Caveat', cursive; }
-        .font-urdu { font-family: 'Noto Nastaliq Urdu', serif; line-height: 2; }
-
-        .page-container {
+        /* Floating Background Icons */
+        .bg-icon {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            display: flex;
-            flex-direction: column;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* App Container */
+        #app {
+            max-width: 520px;
+            margin: 0 auto;
+            position: relative;
+            height: 100vh;
+            height: 100dvh;
+            background: transparent;
+            box-shadow: 0 0 40px rgba(0,0,0,0.03);
+            overflow-x: hidden;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        /* Chapter Transitions */
+        .chapter {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100%;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform: scale(0.95) translateY(30px);
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding-bottom: 120px;
-            padding-top: 40px;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 24px;
+            padding-bottom: env(safe-area-inset-bottom, 24px);
+            display: flex;
+            flex-direction: column;
             z-index: 10;
         }
-        .page-container.active {
+
+        .chapter.active {
             opacity: 1;
             visibility: visible;
-            transform: scale(1) translateY(0);
-        }
-
-        .pkg-wrapper {
+            transform: translateY(0);
+            z-index: 20;
             position: relative;
-            width: 95%;
-            /* Increased max-width to accommodate new longer text content */
-            max-width: 480px;
-            margin: 0 auto;
-            perspective: 1200px;
-            padding: 10px;
         }
 
-        .pkg-card {
-            background-color: var(--card-color, var(--card-pink));
-            border: 4px solid var(--pkg-shadow);
-            border-radius: 20px;
-            box-shadow: 12px 12px 0px rgba(0,0,0,0.9), 0 0 30px rgba(255,255,255,0.05);
-            padding: 1.5rem 1rem;
+        /* Scrapbook Elements */
+        .paper-card {
+            background: rgba(249, 245, 240, 0.95);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            box-shadow: 2px 4px 12px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.15s ease-out;
-            background-image: radial-gradient(rgba(0,0,0,0.15) 15%, transparent 16%), radial-gradient(rgba(0,0,0,0.15) 15%, transparent 16%);
-            background-size: 8px 8px;
-            background-position: 0 0, 4px 4px;
-            background-blend-mode: multiply;
         }
 
-        .pkg-hole {
-            width: 45px; height: 12px; background: #000; border-radius: 20px; margin: 0 auto 15px;
-            box-shadow: inset 0 3px 5px rgba(255,255,255,0.2), 0 2px 0 rgba(255,255,255,0.4);
-            position: relative; z-index: 1;
-        }
-
-        .blister-container { position: relative; margin: 15px 0; border-radius: 12px; z-index: 2; }
-        
-        .blister-item {
-            background: #fff; border: 3px solid #111; border-radius: inherit; padding: 15px;
-            position: relative; z-index: 3; box-shadow: inset 4px 4px 0px rgba(0,0,0,0.1);
-        }
-
-        .blister-dome {
+        .tape {
             position: absolute;
-            top: -6px; left: -6px; right: -6px; bottom: -6px;
-            background: var(--plastic-base);
-            border-radius: 16px;
-            pointer-events: none;
-            z-index: 10;
-            box-shadow: 
-                inset 3px 3px 6px var(--plastic-highlight),
-                inset -4px -4px 8px var(--plastic-shadow),
-                6px 6px 15px rgba(0,0,0,0.5);
-            border-top: 2px solid rgba(255,255,255,0.9);
-            border-left: 2px solid rgba(255,255,255,0.9);
-            border-bottom: 2px solid rgba(0,0,0,0.4);
-            border-right: 2px solid rgba(0,0,0,0.4);
-            overflow: hidden;
+            width: 80px;
+            height: 24px;
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            z-index: 5;
+            backdrop-filter: blur(2px);
+            border-radius: 1px;
+        }
+        
+        .tape.corner-right { left: auto; right: -20px; top: -10px; transform: rotate(45deg); width: 60px; }
+        .tape.corner-left { left: -20px; right: auto; top: -10px; transform: rotate(-45deg); width: 60px; }
+
+        /* Interactive Letter Envelope (FIXED CLIPPING) */
+        .envelope-wrapper { perspective: 1000px; margin-top: 20px; }
+        .envelope {
+            position: relative; width: 100%; height: 220px;
+            background: #EEDECB; border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            margin: 0 auto; cursor: pointer; transition: transform 0.3s;
+        }
+        .envelope:active { transform: scale(0.98); }
+        .env-flap {
+            position: absolute; top: 0; left: 0; width: 100%; height: 60%;
+            background: #E8DDD3; clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top; transition: transform 0.8s ease-in-out; z-index: 4;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .env-letter {
+            position: absolute; bottom: 10px; left: 10px; right: 10px; height: 90%;
+            background: #FFF; border-radius: 2px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2;
+            padding: 20px; overflow-y: auto; display: flex; flex-direction: column;
+        }
+        .env-front {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 70%;
+            background: #E8DDD3; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            z-index: 3;
+        }
+        .env-front-left {
+            position: absolute; bottom: 0; left: 0; width: 50%; height: 100%;
+            background: #E4D7CC; clip-path: polygon(0 0, 100% 50%, 100% 100%, 0 100%); z-index: 3;
+        }
+        .env-front-right {
+            position: absolute; bottom: 0; right: 0; width: 50%; height: 100%;
+            background: #DFD1C5; clip-path: polygon(100% 0, 0 50%, 0 100%, 100% 100%); z-index: 3;
+        }
+        
+        /* Fixed Letter Pull-Out Animation */
+        .envelope.open .env-flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope.open .env-letter { 
+            transform: translateY(-90px); /* Reduced upward translation */
+            height: 300px; 
+            z-index: 5; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2); 
+        }
+        
+        .envelope-seal {
+            position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);
+            width: 40px; height: 40px; background: var(--rose); border-radius: 50%;
+            z-index: 5; display: flex; justify-content: center; align-items: center;
+            color: white; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: opacity 0.3s;
+        }
+        .envelope.open .envelope-seal { opacity: 0; pointer-events: none; }
+
+        /* Scratch Card */
+        #scratch-canvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;
+            border-radius: 8px; cursor: pointer; touch-action: none;
         }
 
-        .blister-dome::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.5) 45%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0) 70%);
-            transform: rotate(25deg) translateX(calc(var(--tilt-x, 0px) * -1.5)); pointer-events: none;
+        /* Love Meter (FIXED FILL DISPLAY) */
+        .heart-jar {
+            border: 4px solid var(--border);
+            background: rgba(255,255,255,0.8);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+        }
+        .jar-fill {
+            transition: height 0.1s linear;
         }
 
-        .sticker {
-            position: absolute; z-index: 20; font-family: 'Space Grotesk', sans-serif; font-weight: 900;
-            text-transform: uppercase; border: 2px solid #111; box-shadow: 3px 3px 0px #111;
-            background: #fff; padding: 4px 8px; border-radius: 4px; line-height: 1.1; text-align: center;
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); color: #111;
-            backface-visibility: hidden;
+        /* Retro ATM */
+        .atm-machine {
+            background: #D1D5DB; border-radius: 12px; padding: 20px;
+            box-shadow: inset -2px -2px 10px rgba(0,0,0,0.1), 0 20px 40px rgba(0,0,0,0.15);
+            border: 2px solid #9CA3AF;
         }
-        .sticker:hover { transform: scale(1.15) rotate(5deg) !important; z-index: 30; }
+        .atm-screen-container {
+            background: #111827; padding: 15px; border-radius: 8px;
+            border: 4px solid #4B5563; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            position: relative; height: 320px; overflow: hidden;
+        }
+        .atm-screen {
+            background: #050A08; width: 100%; height: 100%; font-family: 'Courier New', monospace;
+            color: #4ADE80; padding: 12px; position: relative; font-size: 14px;
+            text-shadow: 0 0 5px rgba(74, 222, 128, 0.5); display: flex; flex-direction: column;
+        }
+        .atm-screen::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px);
+            pointer-events: none; z-index: 10;
+        }
+        .atm-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        .atm-btn {
+            background: #E5E7EB; border: 2px solid #9CA3AF; border-bottom-width: 4px;
+            border-radius: 4px; padding: 10px; font-weight: bold; color: #374151;
+            transition: all 0.1s; text-align: center;
+        }
+        .atm-btn:active { border-bottom-width: 2px; transform: translateY(2px); background: #D1D5DB; }
+        .blink { animation: blinker 1s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+        
+        /* Cake Cutting */
+        .cake-container { width: 200px; height: 160px; position: relative; margin: 40px auto; touch-action: none; }
+        .cake-half {
+            position: absolute; top: 0; width: 50%; height: 100%; background: #F4E5E5;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 10px; border: 2px solid #E8DDD3;
+            display: flex; justify-content: center; align-items: center; font-size: 2rem;
+        }
+        .cake-left { left: 0; border-right: 1px dashed #D9CFC5; border-radius: 15px 0 0 5px; }
+        .cake-right { right: 0; border-left: 1px dashed #D9CFC5; border-radius: 0 15px 5px 0; }
+        .cake-left::before, .cake-right::before { content: '🎂'; position: absolute; font-size: 4rem; opacity: 0.5; top: 20px; }
+        .cake-left::before { left: 10px; clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); }
+        .cake-right::before { right: 10px; clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%); }
+        .knife {
+            position: absolute; top: -30px; left: -40px; font-size: 3rem; z-index: 20;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2)); cursor: grab; transition: transform 0.1s;
+        }
+        .cake-cut .cake-left { transform: translateX(-20px) rotate(-5deg); }
+        .cake-cut .cake-right { transform: translateX(20px) rotate(5deg); }
+        .cake-cut .knife { opacity: 0; transition: opacity 0.3s; }
 
-        .sticker-star {
-            background: var(--card-yellow); width: 70px; height: 70px; display: flex; justify-content: center; align-items: center;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            border: none; box-shadow: none; filter: drop-shadow(3px 3px 0px #111); font-size: 14px; padding-top: 5px;
+        /* Gift Box */
+        .gift-box { position: relative; width: 120px; height: 120px; margin: 60px auto; cursor: pointer; }
+        .gift-bottom {
+            position: absolute; bottom: 0; left: 10px; width: 100px; height: 90px;
+            background: var(--rose); border-radius: 4px; box-shadow: inset -5px -5px 15px rgba(0,0,0,0.1);
         }
+        .gift-ribbon-v { position: absolute; bottom: 0; left: 50px; width: 20px; height: 90px; background: #EEDECB; }
+        .gift-lid {
+            position: absolute; top: 15px; left: 0; width: 120px; height: 30px;
+            background: var(--roselight); border-radius: 4px; z-index: 2;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); transform-origin: center;
+        }
+        .gift-bow {
+            position: absolute; top: -20px; left: 40px; width: 40px; height: 40px; font-size: 2rem;
+            color: #EEDECB; transition: all 0.6s; z-index: 3;
+        }
+        .gift-opened .gift-lid { transform: translateY(-40px) rotate(15deg) scale(1.05); opacity: 0; }
+        .gift-opened .gift-bow { transform: translateY(-40px) rotate(15deg) scale(1.05); opacity: 0; }
+        .gift-light {
+            position: absolute; top: 30px; left: 50%; transform: translateX(-50%) scale(0);
+            width: 10px; height: 10px; background: #FFF; border-radius: 50%;
+            box-shadow: 0 0 40px 30px rgba(255, 255, 255, 0.8), 0 0 80px 60px rgba(238, 222, 203, 0.6);
+            transition: transform 0.8s ease-out; z-index: 1; pointer-events: none;
+        }
+        .gift-opened .gift-light { transform: translateX(-50%) scale(1); }
 
-        /* Falling Background Icons */
-        .falling-icon {
-            position: fixed;
-            top: -10vh;
-            z-index: 0;
-            animation: fall linear infinite;
-            pointer-events: none;
-            filter: drop-shadow(0px 0px 5px rgba(255,255,255,0.2));
+        /* General Utilities */
+        .btn-primary {
+            background-color: var(--rose); color: white; padding: 14px 28px;
+            border-radius: 30px; font-family: 'Poppins', sans-serif; font-weight: 500;
+            letter-spacing: 1px; font-size: 0.9rem; transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(163, 42, 51, 0.2); border: none; outline: none;
         }
-        @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0; }
+        .btn-primary:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(163, 42, 51, 0.2); }
+        .btn-outline {
+            background: rgba(255,255,255,0.8); color: var(--rose); padding: 12px 24px;
+            border-radius: 30px; border: 1px solid var(--rose); font-family: 'Poppins', sans-serif;
+            font-weight: 500; transition: all 0.2s; backdrop-filter: blur(4px);
         }
-
-        .gallery-wall {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            padding: 0 15px; 
-            max-width: 1200px;
-            margin: 0 auto;
-            align-items: center;
-            justify-items: center;
+        .btn-outline:active { background: rgba(163, 42, 51, 0.05); transform: scale(0.98); }
+        .shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
         }
-
-        @media (min-width: 768px) {
-            .gallery-wall {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 3rem;
-                padding: 0 40px;
-            }
+        .heartbeat { animation: heartbeat 1.5s ease-in-out infinite both; }
+        @keyframes heartbeat {
+            from { transform: scale(1); transform-origin: center center; animation-timing-function: ease-out; }
+            10% { transform: scale(0.91); animation-timing-function: ease-in; }
+            17% { transform: scale(0.98); animation-timing-function: ease-out; }
+            33% { transform: scale(0.87); animation-timing-function: ease-in; }
+            45% { transform: scale(1); animation-timing-function: ease-out; }
         }
-
-        .gallery-item-wrapper {
-            position: relative;
-            width: 100%;
-            transform-style: preserve-3d;
-        }
-
-        .collectible-photo {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            cursor: pointer;
-            border-radius: 12px;
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
-            filter: drop-shadow(0 15px 20px rgba(0,0,0,0.9)) drop-shadow(0 0 12px var(--glow-color, rgba(255,255,255,0.1)));
-            will-change: transform, filter;
-            -webkit-user-drag: none;
-        }
-
-        .gallery-item-wrapper:hover .collectible-photo {
-            transform: scale(1.05) translateY(-5px) rotate(0deg) !important;
-            filter: drop-shadow(0 20px 25px rgba(0,0,0,1)) drop-shadow(0 0 20px var(--glow-color, rgba(255,255,255,0.4)));
-            z-index: 50;
-        }
-
+        
+        /* Lightbox */
         #lightbox {
-            position: fixed; inset: 0; z-index: 9999;
-            background: rgba(10,10,10,0.95);
-            backdrop-filter: blur(8px);
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.3s ease;
+            position: fixed; inset: 0; z-index: 1000; background: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
         #lightbox.active { opacity: 1; pointer-events: auto; }
-        #lightbox img, #lightbox video {
-            max-width: 90%; max-height: 90vh;
-            border-radius: 12px;
-            box-shadow: 0 0 60px rgba(255,255,255,0.1);
-            transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        #lightbox.active img, #lightbox.active video { transform: scale(1); }
-        .lightbox-close {
-            position: absolute; top: 20px; right: 25px;
-            color: white; font-size: 2.5rem; cursor: pointer; z-index: 10000;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5); transition: transform 0.2s;
-        }
-        .lightbox-close:hover { transform: scale(1.1); }
-
-        .ambient-deco { position: absolute; pointer-events: none; z-index: 0; animation: float-pack 6s ease-in-out infinite; opacity: 0.6; }
-        @keyframes float-pack { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(2deg); } }
-        .anim-float { animation: float-pack 4s ease-in-out infinite; }
-        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
-        .anim-wiggle { animation: wiggle 2s ease-in-out infinite; }
-
-        .printed-text { 
-            color: #ffffff; 
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 
-                3px 3px 0px #000,
-                -1px -1px 0 #000,  
-                1px -1px 0 #000,
-                -1px 1px 0 #000,
-                1px 1px 0 #000;
-        }
-
-        .blister-input { width: 100%; background: #f0f0f0; border: 3px solid #111; border-radius: 8px; padding: 12px; font-family: 'Space Grotesk', sans-serif; font-weight: 900; text-align: center; box-shadow: inset 3px 3px 0px rgba(0,0,0,0.1); position: relative; z-index: 20; pointer-events: auto; color: #111;}
-        .blister-btn { background: var(--card-cyan); border: 3px solid #111; border-radius: 8px; padding: 12px; width: 100%; font-family: 'Archivo Black', sans-serif; font-size: 1.2rem; text-transform: uppercase; box-shadow: 4px 4px 0px #111; margin-top: 10px; position: relative; z-index: 20; pointer-events: auto; transition: all 0.1s; color:#111; }
-        .blister-btn:active { box-shadow: 0px 0px 0px #111; transform: translate(4px, 4px); }
-
-        .nav-btn { border: 3px solid var(--pkg-shadow); box-shadow: 4px 4px 0px var(--pkg-shadow); transition: all 0.2s ease; }
-        .nav-btn:active:not(:disabled) { transform: translate(4px, 4px); box-shadow: 0px 0px 0px var(--pkg-shadow); }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        #lightbox img, #lightbox video { max-width: 90%; max-height: 80vh; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; font-size: 2rem; color: var(--charcoal); cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <script>
-        const CONFIG = {
-            targetDate: "2026-11-24T00:00:00", // Ruheen's Birthday
-            password: "ruheen24",
-            musicSrc: "img/LXNGVX, Warriyo - Mortals Funk Remix (Official Music).mp3" 
-        };
-
-        const mediaGallery = Array.from({length: 10}, (_, i) => ({
-            type: 'image',
-            src: `img/1 (${i + 1}).png`
-        }));
-    </script>
-
-    <div id="falling-icons-container"></div>
-
-    <div id="lightbox" onclick="closeLightbox()">
-        <i class="fa-solid fa-xmark lightbox-close"></i>
-        <img id="lightbox-img" src="" alt="Fullscreen Item">
-    </div>
-
+    <!-- Audio Element -->
     <audio id="bgMusic" loop>
-        <source src="" type="audio/mpeg">
+        <source src="img/LXNGVX, Warriyo - Mortals Funk Remix (Official Music).mp3" type="audio/mpeg">
     </audio>
 
-    <!-- PAGE 0: BIRTHDAY DROP (COUNTDOWN / LOCK) -->
-    <div id="page-0" class="page-container active">
-        <div class="pkg-wrapper anim-float tilt-target">
-            <div class="sticker sticker-star -top-4 -left-4 -rotate-12 z-30">TOP<br>SECRET</div>
-            <div class="sticker bg-[var(--card-lime)] rounded-full w-[60px] h-[60px] flex justify-center items-center font-archivo text-[var(--card-pink)] text-[14px] -right-2 top-20 rotate-12 z-30 flex-col leading-none"><span>ONLY</span><span class="text-xl">1</span></div>
-            <div class="sticker -bottom-4 left-4 rotate-6 z-30 text-xs bg-black text-white border-white">DO NOT OPEN UNTIL 24 NOV</div>
+    <!-- Floating Background Icons -->
+    <div id="bg-icons-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
 
-            <div class="pkg-card" style="--card-color: var(--card-orange);">
-                <div class="pkg-hole"></div>
+    <div id="app">
+        
+        <!-- STEP 1: PASSKEY -->
+        <section id="step-1" class="chapter active justify-center items-center">
+            <div class="text-center w-full max-w-xs relative bg-white/60 p-8 rounded-2xl shadow-xl backdrop-blur-sm border border-white">
+                <i class="fa-solid fa-heart text-rose text-4xl absolute -top-5 -right-4 transform rotate-12 drop-shadow-md"></i>
+                <i class="fa-solid fa-star text-pink-400 text-2xl absolute bottom-10 -left-6 transform -rotate-12 drop-shadow-md"></i>
                 
-                <div class="text-center mb-6 mt-2 relative z-20">
-                    <div class="bg-black text-white text-[10px] font-bold inline-block px-3 py-1.5 mb-3 border-2 border-white rounded-full shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">SPECIAL EDITION DROP</div>
-                    <h2 class="font-archivo font-black text-5xl text-white printed-text transform -rotate-2 leading-tight">RUHEEN<br>/ 24</h2>
-                    <p class="text-[11px] font-bold uppercase mt-2 text-black bg-white/70 inline-block px-2 py-0.5 rounded backdrop-blur-sm border border-black/10">Collectible Series • Ages 24+</p>
+                <div class="w-16 h-16 bg-gradient-to-br from-rose to-red-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-rose/30 text-white">
+                    <i class="fa-solid fa-lock text-xl"></i>
+                </div>
+                <h1 class="font-serif text-2xl font-bold mb-2">Something special is waiting...</h1>
+                <p class="text-muted text-sm mb-6 font-hand text-xl">Only you know the way ♡</p>
+                
+                <div class="relative mb-6">
+                    <input type="password" id="passInput" placeholder="Enter the secret key" 
+                           class="w-full bg-white/80 border border-border rounded-xl px-4 py-3 text-center tracking-widest focus:outline-none focus:border-rose focus:bg-white transition-colors shadow-sm text-charcoal">
+                    <p id="errorMsg" class="absolute -bottom-6 left-0 w-full text-center text-xs text-rose opacity-0 transition-opacity font-bold">Incorrect key. Try again.</p>
+                </div>
+                
+                <button onclick="checkPassword()" class="btn-primary w-full">UNLOCK SURPRISE</button>
+            </div>
+        </section>
+
+        <!-- STEP 2: LOADING -->
+        <section id="step-2" class="chapter justify-center items-center text-center">
+            <div class="bg-white/50 p-8 rounded-full shadow-2xl backdrop-blur-md mb-6">
+                <i class="fa-solid fa-heart text-rose text-6xl heartbeat drop-shadow-lg"></i>
+            </div>
+            <h2 class="font-serif text-2xl italic text-charcoal mb-2">Unlocking your little universe...</h2>
+            <div class="w-40 h-1.5 bg-border rounded-full mx-auto overflow-hidden mt-4 shadow-inner">
+                <div class="h-full bg-gradient-to-r from-rose to-pink-400 rounded-full w-1/2 animate-[slide_1.5s_ease-in-out_infinite]"></div>
+            </div>
+        </section>
+
+        <!-- STEP 3: HERO -->
+        <section id="step-3" class="chapter justify-center items-center">
+            <div class="paper-card p-8 text-center relative w-full max-w-sm mt-4">
+                <div class="tape"></div>
+                
+                <!-- Flirty Note Scrap -->
+                <div class="absolute -top-8 -right-4 bg-white p-3 border border-border shadow-md transform rotate-6 z-10 w-36 rounded-md">
+                    <div class="tape corner-right"></div>
+                    <i class="fa-solid fa-fire text-orange-400 absolute -top-2 -left-2 text-lg"></i>
+                    <p class="font-hand text-sm leading-tight font-bold text-charcoal">Highly addictive & illegally cute. Proceed with caution. 😉</p>
                 </div>
 
-                <div id="countdown-container" class="mb-6 relative z-10">
-                    <div class="sticker bg-white text-black -top-3 left-1/2 -translate-x-1/2 text-[10px] z-20 shadow-[2px_2px_0px_#111]">UNLOCKS IN ⏳</div>
-                    
-                    <div class="flex justify-between gap-1 w-full pt-2">
-                        <div class="blister-container flex-1 m-0">
-                            <div class="blister-item bg-[var(--card-cyan)] p-2 text-center">
-                                <span id="cd-days" class="font-archivo text-2xl text-black block drop-shadow-[1px_1px_0px_#fff]">00</span>
-                                <span class="text-[8px] font-black uppercase text-black">Days</span>
-                            </div>
-                            <div class="blister-dome"></div>
-                        </div>
-                        <div class="blister-container flex-1 m-0">
-                            <div class="blister-item bg-[var(--card-pink)] p-2 text-center">
-                                <span id="cd-hours" class="font-archivo text-2xl text-white block drop-shadow-[2px_2px_0px_#111]">00</span>
-                                <span class="text-[8px] font-black uppercase text-white">Hrs</span>
-                            </div>
-                            <div class="blister-dome"></div>
-                        </div>
-                        <div class="blister-container flex-1 m-0">
-                            <div class="blister-item bg-[var(--card-lime)] p-2 text-center">
-                                <span id="cd-minutes" class="font-archivo text-2xl text-black block drop-shadow-[1px_1px_0px_#fff]">00</span>
-                                <span class="text-[8px] font-black uppercase text-black">Min</span>
-                            </div>
-                            <div class="blister-dome"></div>
-                        </div>
-                        <div class="blister-container flex-1 m-0">
-                            <div class="blister-item bg-[var(--card-purple)] p-2 text-center">
-                                <span id="cd-seconds" class="font-archivo text-2xl text-white block drop-shadow-[2px_2px_0px_#111]">00</span>
-                                <span class="text-[8px] font-black uppercase text-white">Sec</span>
-                            </div>
-                            <div class="blister-dome"></div>
-                        </div>
-                    </div>
+                <p class="text-xs font-bold tracking-[0.2em] text-rose mb-6 uppercase border-b border-rose/20 pb-2 inline-block">24 November 2002</p>
+                
+                <h1 class="font-serif text-5xl font-bold text-rose leading-tight mb-2 drop-shadow-sm">HAPPIEST<br>BIRTHDAY</h1>
+                <h2 class="font-serif text-4xl italic text-charcoal mb-8 mt-2 drop-shadow-sm">Ruheen</h2>
+                
+                <div class="bg-rose/5 p-4 rounded-lg mb-8 border border-rose/10">
+                    <p class="font-hand text-2xl text-charcoal transform -rotate-1 font-bold">
+                        "Another beautiful year begins, filled with love, laughter, and moments worth remembering."
+                    </p>
                 </div>
-
-                <div class="blister-container mt-2">
-                    <div class="sticker -top-3 -right-2 rotate-12 text-[10px] bg-yellow-300">ACCESS KEY</div>
-                    <div class="blister-item bg-[var(--card-white)] flex flex-col items-center">
-                        <i class="fa-solid fa-lock text-3xl mb-2 text-gray-300"></i>
-                        <input type="password" id="passInput" placeholder="ENTER CODE" class="blister-input mb-2 uppercase">
-                        <p id="errorMsg" class="text-white font-bold text-[10px] opacity-0 transition-opacity uppercase bg-red-600 px-2 rounded mb-1">Error: Try Again</p>
-                        <button onclick="checkPassword()" class="blister-btn">OPEN PACKAGE</button>
-                    </div>
-                    <div class="blister-dome"></div>
-                </div>
-
-                <div class="mt-4 flex justify-between items-end border-t-2 border-black border-dashed pt-2">
-                    <div class="text-[8px] font-black leading-tight text-black">
-                        MFG: 24/11/2002<br>EXP: NEVER<br>MADE WITH 🤍
-                    </div>
-                    <div class="bg-[repeating-linear-gradient(90deg,#111,#111_2px,transparent_2px,transparent_5px,#111_5px,#111_7px,transparent_7px,transparent_9px)] h-[30px] w-full max-w-[120px] border-2 border-white outline outline-2 outline-[#111] mt-2"></div>
+                
+                <div class="flex justify-center mt-2">
+                    <button onclick="nextStep()" class="btn-primary flex items-center gap-2 px-8 py-4 text-lg">
+                        OPEN MY STORY <i class="fa-solid fa-arrow-right-long"></i>
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- PAGE 1: HERO PACKAGE -->
-    <div id="page-1" class="page-container">
-        <div class="pkg-wrapper tilt-target mt-8">
-            <div class="sticker bg-white text-black px-4 py-1 text-lg rounded-full absolute -top-4 -right-2 rotate-12 z-30 shadow-[4px_4px_0px_#111] font-bangers">VIP 🤍</div>
-            
-            <div class="pkg-card" style="--card-color: var(--card-cyan);">
-                <div class="pkg-hole"></div>
-
-                <div class="bg-white border-[3px] border-[var(--card-pink)] text-black text-[10px] p-1 absolute top-10 left-2 -rotate-6 z-10 w-28 font-bold">
-                    <span class="bg-[var(--card-pink)] text-white px-1 block mb-1 border-b-2 border-black text-center">A LITTLE CELEBRATION</span>
-                    FOR SOMEONE VERY SPECIAL.
-                </div>
-                
-                <h1 class="font-anton text-[clamp(3.5rem,15vw,6rem)] leading-none text-center text-[#ff1493] printed-text transform -rotate-3 mt-16 mb-4 relative z-10">
-                    RUHEEN
-                </h1>
-                
-                <div class="blister-container">
-                    <div class="blister-item bg-[var(--card-yellow)] flex flex-col items-center p-6 bg-[radial-gradient(circle_at_center,_var(--card-white)_0%,_var(--card-yellow)_100%)]">
-                        <div class="font-caveat text-2xl text-center font-bold text-black transform rotate-2 leading-tight">
-                            “Another beautiful year begins, filled with love, laughter, and moments worth remembering.”
-                        </div>
-                        <div class="mt-4 flex gap-3 text-2xl">
-                            <i class="fa-solid fa-heart text-[#ff1493] anim-wiggle"></i>
-                            <i class="fa-solid fa-star text-black anim-float"></i>
-                            <i class="fa-solid fa-heart text-[#ff1493] anim-wiggle" style="animation-delay: 0.5s"></i>
-                        </div>
-                    </div>
-                    <div class="blister-dome"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PAGE 2: DUA COLLECTION -->
-    <div id="page-2" class="page-container">
-        <div class="pkg-wrapper tilt-target mt-2">
-            <div class="sticker bg-[var(--card-lime)] text-black text-2xl p-2 rounded-full absolute -top-4 -left-4 z-30 transform -rotate-12">
-                <i class="fa-solid fa-moon"></i>
+        <!-- STEP 4: INTERACTIVE LETTER -->
+        <!-- Removed justify-center and items-center so the letter has room to slide UP without clipping on mobile -->
+        <section id="step-4" class="chapter pt-24 px-4 items-center">
+            <div class="text-center mb-4 w-full">
+                <h2 class="font-serif text-3xl font-bold text-rose mb-1">A Note For You</h2>
+                <p class="text-sm text-muted font-bold tracking-widest uppercase">Tap the envelope to open</p>
             </div>
             
-            <div class="pkg-card" style="--card-color: var(--card-purple);">
-                <div class="pkg-hole bg-white"></div>
-                
-                <h2 class="font-bangers text-3xl text-white text-center tracking-widest mt-1 mb-2 drop-shadow-[3px_3px_0px_#111]">A SPECIAL DUA</h2>
-                
-                <div class="blister-container">
-                    <div class="sticker -right-4 top-1/2 rotate-90 text-[9px] bg-white text-black px-2">FOR YOUR BEAUTIFUL YEAR AHEAD</div>
-                    <div class="blister-item bg-[var(--card-white)] p-5 pb-6 text-center">
-                        <i class="fa-solid fa-quote-left text-2xl text-[var(--card-pink)] mb-2 opacity-50 block"></i>
-                        <p class="font-bold text-[13px] leading-relaxed z-10 relative text-black text-left">
-                            May Allah accept every sincere dua in your heart, bless you with endless happiness, and fill every chapter of your life with peace, love, and barakah.<br><br>
-                            May your smile always remain bright, may your heart always find reasons to be grateful, and may every dream you hold close to your heart find its way to becoming a beautiful reality.<br><br>
-                            May Allah protect you from every hardship, surround you with people who genuinely love and value you, and bless you with good health, beautiful memories, and countless moments worth cherishing.<br><br>
-                            May this new year of your life bring more laughter, more love, more blessings, and everything your heart quietly wishes for.<br><br>
-                            May Allah keep you happy, protected, and blessed — today and always.
-                        </p>
-                        <div class="font-caveat text-3xl text-[var(--card-pink)] mt-4 font-black">Ameen. 🤍</div>
-                    </div>
-                    <div class="blister-dome"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PAGE 3: NOTE COLLECTION -->
-    <div id="page-3" class="page-container">
-        <div class="pkg-wrapper tilt-target mt-8">
-            <div class="sticker bg-[var(--card-orange)] text-white px-3 py-1 rounded absolute -top-4 right-4 rotate-6 z-30 text-xl font-bangers">
-                <i class="fa-solid fa-envelope"></i> NOTE
-            </div>
-
-            <div class="pkg-card" style="--card-color: var(--card-lime);">
-                <div class="pkg-hole"></div>
-                
-                <div class="blister-container mt-8">
-                    <div class="blister-item bg-white p-6 pb-12">
-                        <h2 class="font-caveat text-3xl text-[var(--card-pink)] mb-4 font-black">To My Dearest Ruheen,</h2>
-                        <div class="space-y-3 text-black font-bold leading-snug text-sm">
+            <div class="envelope-wrapper w-full max-w-xs">
+                <div class="envelope" id="letterEnvelope" onclick="openEnvelope()">
+                    <div class="env-flap"></div>
+                    <div class="env-letter" id="letterContent">
+                        <h3 class="font-hand text-3xl text-rose font-bold mb-3 border-b border-rose/10 pb-2">To My Dearest Ruheen,</h3>
+                        <div class="text-sm leading-relaxed space-y-3 text-charcoal font-medium">
                             <p>Words fall short when I try to express how special you are to me. Your presence makes everything brighter, and your smile is literally contagious.</p>
                             <p>On this beautiful occasion of your birthday, I just wanted to remind you how much you are loved. You are not just a friend; you are a vibe, a comfort zone, and a sister.</p>
                             <p>May this 24th of November bring you the magic you truly deserve.</p>
                         </div>
-                        <div class="absolute bottom-4 right-4 text-right">
-                            <p class="text-[10px] font-black text-gray-500 uppercase">With all the love,</p>
-                            <p class="font-bangers text-2xl text-black drop-shadow-[1px_1px_0px_var(--card-cyan)]">Taniya</p>
+                        <div class="text-right mt-4 pt-3 border-t border-gray-200">
+                            <p class="text-[10px] uppercase tracking-widest text-muted font-bold">With all the love,</p>
+                            <p class="font-hand text-3xl text-rose font-bold mt-1">Taniya</p>
                         </div>
                     </div>
-                    <div class="blister-dome"></div>
+                    <div class="env-front-left"></div>
+                    <div class="env-front-right"></div>
+                    <div class="env-front"></div>
+                    <div class="envelope-seal"><i class="fa-solid fa-heart text-sm"></i></div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- PAGE 4: GALLERY 1 -->
-    <div id="page-4" class="page-container">
-        <i class="fa-solid fa-star ambient-deco text-[var(--card-yellow)] text-3xl top-[10%] left-[10%] rotate-12"></i>
-        <i class="fa-solid fa-sparkles ambient-deco text-[var(--card-cyan)] text-2xl bottom-[20%] right-[10%] -rotate-6"></i>
+            <div id="letterNextBtn" class="text-center mt-12 opacity-0 transition-opacity duration-500 pointer-events-none absolute bottom-12 w-full left-0">
+                <button onclick="nextStep()" class="btn-outline bg-white/80 shadow-lg px-8 py-3 text-lg font-bold">NEXT CHAPTER →</button>
+            </div>
+        </section>
 
-        <div class="text-center mb-8 relative max-w-sm mx-auto z-10">
-            <h2 class="inline-block bg-[var(--card-yellow)] text-black px-6 py-2 border-4 border-black shadow-[6px_6px_0px_#111] text-3xl font-bangers transform -rotate-2">
-                MEMORY COLLECTION #1
-            </h2>
-        </div>
-        
-        <div id="gallery-grid-1" class="gallery-wall relative z-10"></div>
-    </div>
+        <!-- STEP 5: SCRATCH CARD -->
+        <section id="step-5" class="chapter justify-center items-center">
+            <h2 class="font-serif text-3xl font-bold text-rose text-center mb-8 bg-white/60 px-6 py-2 rounded-full shadow-sm">A Little Surprise</h2>
+            
+            <div class="relative w-[300px] h-[160px] bg-white rounded-xl shadow-xl border-2 border-border p-1 mx-auto">
+                <!-- Reward Content -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-0 bg-gradient-to-br from-pink-50 to-rose/10 rounded-lg m-1">
+                    <i class="fa-solid fa-gift text-rose/20 text-4xl absolute right-4 top-4"></i>
+                    <p class="text-xs uppercase tracking-widest text-rose font-bold mb-2">You Won</p>
+                    <h3 class="font-serif text-2xl font-bold text-charcoal mb-2 leading-tight">UNLIMITED HUGS ♡</h3>
+                    <p class="font-hand text-2xl text-rose font-bold">Valid for a lifetime!</p>
+                </div>
+                
+                <!-- Canvas Overlay -->
+                <canvas id="scratch-canvas" class="m-1 rounded-lg" style="width: calc(100% - 8px); height: calc(100% - 8px);"></canvas>
+            </div>
 
-    <!-- PAGE 5: FLIRTY PACK 1 -->
-    <div id="page-5" class="page-container">
-        <div class="pkg-wrapper tilt-target mt-8">
-            <div class="sticker bg-[var(--card-red)] text-white px-3 py-1 rounded absolute -top-4 -left-4 -rotate-6 z-30 font-black">
-                <i class="fa-solid fa-fire"></i> CAUTION
+            <div id="scratchMessage" class="text-center mt-6 font-bold tracking-widest uppercase text-muted bg-white/50 px-4 py-1 rounded-full">S̶c̶r̶a̶t̶c̶h̶ ̶H̶e̶r̶e̶</div>
+            
+            <div id="scratchNextBtn" class="text-center mt-10 opacity-0 transition-opacity duration-500 pointer-events-none">
+                <span class="inline-block bg-green-100 text-green-800 text-xs px-4 py-2 rounded-full font-bold mb-4 shadow-sm border border-green-200">CLAIMED ✓</span><br>
+                <button onclick="nextStep()" class="btn-outline bg-white/80 font-bold px-8 py-3">NEXT CHAPTER →</button>
+            </div>
+        </section>
+
+        <!-- STEP 6: LOVE METER -->
+        <section id="step-6" class="chapter justify-center items-center">
+            <h2 class="font-serif text-3xl font-bold text-rose text-center mb-8 drop-shadow-sm">How much love is here?</h2>
+            
+            <!-- FIXED LOVE JAR UI -->
+            <div class="w-36 h-56 border-4 border-rose bg-white rounded-t-full rounded-b-[40px] mx-auto relative overflow-hidden shadow-2xl mb-8">
+                <!-- explicit background fill using tailwind utility colors -->
+                <div id="jarFill" class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-rose to-pink-400 jar-fill" style="height: 0%;"></div>
+                
+                <div class="absolute inset-0 flex justify-center items-center z-10 pointer-events-none">
+                    <span id="lovePercent" class="font-serif text-3xl font-bold text-charcoal bg-white/80 px-4 py-2 rounded-full backdrop-blur-sm shadow-md transition-colors border border-gray-100">0%</span>
+                </div>
+            </div>
+
+            <div id="meterControls" class="text-center h-24 flex flex-col justify-center items-center">
+                <p class="text-xs text-rose mb-3 font-bold uppercase tracking-widest bg-white/60 px-4 py-1 rounded-full">Press and hold</p>
+                <button id="fillBtn" class="w-20 h-20 bg-gradient-to-br from-rose to-red-500 rounded-full text-white shadow-xl shadow-rose/40 flex items-center justify-center text-3xl transition-transform active:scale-90 border-4 border-white">
+                    <i class="fa-solid fa-heart heartbeat"></i>
+                </button>
+            </div>
+
+            <!-- This container will reliably show the NEXT button when meter is 100% -->
+            <div id="meterResult" class="text-center mt-4 hidden flex-col items-center px-4 w-full">
+                <div class="paper-card p-5 mb-6 transform rotate-2 w-full max-w-sm">
+                    <div class="tape"></div>
+                    <p class="font-hand text-xl leading-snug font-bold text-charcoal">
+                        "Okay... this meter wasn't built for this much love. ♡"<br><br>
+                        <span class="text-lg text-rose">Two birthdays. One unforgettable date. 24th was already special, but then it gave us two reasons to celebrate — Taniya & Ruheen. ✨</span>
+                    </p>
+                </div>
+                <!-- Make sure button is clearly visible -->
+                <button onclick="nextStep()" class="btn-primary w-full max-w-xs py-4 text-lg shadow-xl animate-[fadeIn_0.5s_ease-out]">CONTINUE →</button>
+            </div>
+        </section>
+
+        <!-- STEP 7: VIRTUAL ATM -->
+        <section id="step-7" class="chapter justify-center">
+            <h2 class="font-serif text-3xl font-bold text-rose text-center mb-6 drop-shadow-sm">Memory Vault</h2>
+            <div class="atm-machine max-w-md mx-auto w-full relative z-20">
+                <!-- Screen -->
+                <div class="atm-screen-container">
+                    <div class="atm-screen" id="atmScreen">
+                        <!-- Content dynamically injected via JS -->
+                    </div>
+                </div>
+                
+                <!-- Keypad -->
+                <div class="atm-keypad">
+                    <button class="atm-btn" onclick="atmKeyPress(1)">1</button>
+                    <button class="atm-btn" onclick="atmKeyPress(2)">2</button>
+                    <button class="atm-btn" onclick="atmKeyPress(3)">3</button>
+                    <button class="atm-btn" onclick="atmKeyPress(4)">4</button>
+                    <button class="atm-btn" onclick="atmKeyPress(5)">5</button>
+                    <button class="atm-btn" onclick="atmKeyPress(6)">6</button>
+                    <button class="atm-btn" onclick="atmKeyPress(7)">7</button>
+                    <button class="atm-btn" onclick="atmKeyPress(8)">8</button>
+                    <button class="atm-btn" onclick="atmKeyPress(9)">9</button>
+                    <button class="atm-btn text-[10px] text-red-600 font-black tracking-tighter" onclick="atmKeyPress('clear')">CLEAR</button>
+                    <button class="atm-btn" onclick="atmKeyPress(0)">0</button>
+                    <button class="atm-btn text-[10px] text-green-600 font-black tracking-tighter" onclick="atmKeyPress('enter')">ENTER</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 8: CAKE CUTTING -->
+        <section id="step-8" class="chapter justify-center items-center">
+            <div class="bg-white/70 p-6 rounded-2xl shadow-lg backdrop-blur-sm border border-white text-center">
+                <h2 class="font-serif text-3xl font-bold text-rose mb-2">Make a wish first...</h2>
+                <p class="text-sm font-bold tracking-widest uppercase text-muted mb-8 border-b border-gray-200 pb-2 inline-block">Drag the knife to cut</p>
+                
+                <div class="cake-container" id="cakeContainer">
+                    <div class="cake-half cake-left" id="cakeLeft"></div>
+                    <div class="cake-half cake-right" id="cakeRight"></div>
+                    <div class="knife" id="knife">🔪</div>
+                </div>
+            </div>
+
+            <div id="cakeNextBtn" class="text-center mt-12 opacity-0 transition-opacity duration-500 pointer-events-none">
+                <span class="inline-block bg-rose/10 text-rose text-xs px-5 py-2 rounded-full font-bold mb-4 border border-rose/20 shadow-sm">WISH GRANTED ✓</span><br>
+                <button onclick="nextStep()" class="btn-outline bg-white/80 px-10 py-3 font-bold text-lg">NEXT →</button>
+            </div>
+        </section>
+
+        <!-- STEP 9: FINAL GIFT -->
+        <section id="step-9" class="chapter justify-center items-center">
+            <h2 class="font-serif text-4xl font-bold text-rose text-center mb-12 bg-white/60 px-8 py-3 rounded-full shadow-sm drop-shadow-md">A Final Surprise</h2>
+            
+            <div class="bg-white/40 w-48 h-48 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 blur-2xl z-0 pointer-events-none"></div>
+
+            <div class="gift-box z-10" id="giftBox" onclick="openGift()">
+                <div class="gift-bottom"></div>
+                <div class="gift-ribbon-v"></div>
+                <div class="gift-lid"></div>
+                <div class="gift-bow"><i class="fa-solid fa-ribbon text-rose drop-shadow-md"></i></div>
+                <div class="gift-light"></div>
             </div>
             
-            <div class="pkg-card" style="--card-color: var(--card-orange);">
-                <div class="pkg-hole"></div>
-                
-                <div class="blister-container mt-8">
-                    <div class="sticker -right-4 top-1/2 rotate-90 text-[10px] bg-yellow-300">EXTREME HEAT</div>
-                    <div class="blister-item bg-[var(--card-white)] p-6 text-center">
-                        <h2 class="font-bangers text-3xl text-[var(--card-red)] mb-4 drop-shadow-[1px_1px_0px_#111] transform -rotate-2">FIRE HAZARD!</h2>
-                        <p class="font-bold text-sm leading-relaxed z-10 relative text-black">
-                            Two birthdays. One unforgettable date. 🔥<br><br>
-                            24th was already a special day, but then it gave us two reasons to celebrate — Taniya & Ruheen.<br><br>
-                            Some dates are meant to be remembered, and some people make them impossible to forget. ✨<br><br>
-                            So yes, if 24th feels a little more special, now you know exactly why. ❤️
-                        </p>
-                    </div>
-                    <div class="blister-dome"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+            <p id="giftText" class="text-sm text-rose font-bold text-center mt-12 uppercase tracking-[0.3em] transition-opacity bg-white/70 px-6 py-2 rounded-full shadow-sm border border-white z-10">Tap to open</p>
+        </section>
 
-    <!-- PAGE 6: POETRY PACK -->
-    <div id="page-6" class="page-container">
-        <div class="pkg-wrapper tilt-target mt-8">
-            <div class="sticker bg-white text-black px-4 py-1 rounded-full absolute -top-4 left-4 -rotate-12 z-30 text-lg font-bangers">POETRY ✨</div>
-
-            <div class="pkg-card" style="--card-color: var(--card-pink);">
-                <div class="pkg-hole bg-white"></div>
-                
-                <div class="blister-container mt-10">
-                    <div class="blister-item bg-[var(--card-yellow)] p-8 text-center relative overflow-hidden">
-                        <i class="fa-solid fa-heart text-6xl text-[var(--card-pink)] opacity-20 absolute -top-4 -right-4 z-0"></i>
-                        
-                        <p class="text-2xl text-black font-black leading-loose font-caveat relative z-10 transform -rotate-2">
-                            "Chand se pyari chandni,<br>
-                            Chandni se pyari raat,<br>
-                            Raat se pyari zindagi,<br>
-                            Aur zindagi se pyari aap..."
-                        </p>
-                    </div>
-                    <div class="blister-dome"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PAGE 7: VIDEO PACK -->
-    <div id="page-7" class="page-container">
-        <div class="pkg-wrapper tilt-target mt-4">
-            <div class="sticker bg-[var(--card-cyan)] text-black px-3 py-1 rounded absolute -top-6 right-0 rotate-12 z-30 font-black shadow-[4px_4px_0px_#111]">
-                TWINS BIRTHDAY 🎬
+        <!-- STEP 10: FINALE EDITION -->
+        <section id="step-10" class="chapter py-10 px-4 overflow-y-auto items-center">
+            <div class="text-center mb-8 w-full max-w-md bg-white/80 p-6 rounded-3xl shadow-lg border border-white backdrop-blur-sm">
+                <i class="fa-solid fa-crown text-3xl text-yellow-500 mb-2 drop-shadow-md"></i>
+                <h1 class="font-serif text-5xl font-bold text-rose mb-1">HAPPY<br>BIRTHDAY</h1>
+                <h2 class="font-serif text-4xl italic text-charcoal">Ruheen ♡</h2>
             </div>
             
-            <div class="pkg-card" style="--card-color: var(--card-purple);">
-                <div class="pkg-hole bg-white"></div>
-                
-                <div class="blister-container mt-6">
-                    <div class="blister-item bg-black p-2 relative">
-                        <!-- Portrait Video Element --><video
-    id="bday-video"
-    src="img/video.mp4"
-    playsinline
-    webkit-playsinline
-    autoplay
-    loop
-    muted
-    preload="auto"
-    controls
-    class="w-full h-auto rounded-lg shadow-inner"
-    style="max-height: 60vh; object-fit: cover;">
-</video>
-                        <div class="absolute bottom-4 left-0 w-full text-center pointer-events-none">
-                            <span class="bg-black/70 text-white font-archivo text-[10px] px-2 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm border border-white/20">Now Playing</span>
-                        </div>
+            <div class="w-full max-w-md">
+                <div class="paper-card p-6 mb-6 relative">
+                    <div class="tape corner-left"></div>
+                    <i class="fa-solid fa-moon text-rose/20 text-5xl absolute -bottom-2 -right-2"></i>
+                    <p class="font-hand text-3xl text-rose font-bold mb-4 text-center border-b border-rose/10 pb-2">A Special Dua</p>
+                    <div class="text-[13px] leading-relaxed space-y-3 font-medium text-charcoal relative z-10">
+                        <p>May Allah accept every sincere dua in your heart, bless you with endless happiness, and fill every chapter of your life with peace, love, and barakah.</p>
+                        <p>May your smile always remain bright, may your heart always find reasons to be grateful, and may every dream you hold close to your heart find its way to becoming a beautiful reality.</p>
                     </div>
-                    <!-- Slight less opacity on dome so video is clearer -->
-                    <div class="blister-dome" style="background: rgba(255,255,255,0.05);"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PAGE 8: GALLERY 2 -->
-    <div id="page-8" class="page-container">
-        <i class="fa-solid fa-heart ambient-deco text-[var(--card-pink)] text-3xl top-[15%] right-[15%] rotate-[-12deg]"></i>
-        <i class="fa-solid fa-certificate ambient-deco text-[var(--card-lime)] text-xl bottom-[30%] left-[8%] rotate-[15deg]"></i>
-
-        <div class="text-center mb-8 relative max-w-sm mx-auto z-10">
-            <h2 class="inline-block bg-[var(--card-cyan)] text-black px-6 py-2 border-4 border-black shadow-[6px_6px_0px_#111] text-3xl font-bangers transform rotate-2">
-                MEMORY COLLECTION #2
-            </h2>
-        </div>
-        
-        <div id="gallery-grid-2" class="gallery-wall relative z-10"></div>
-    </div>
-
-    <!-- PAGE 9: FLIRTY PACK 2 -->
-    <div id="page-9" class="page-container">
-        <div class="pkg-wrapper tilt-target mt-8">
-            <div class="sticker bg-black text-[var(--card-lime)] px-3 py-1 rounded absolute -top-4 right-4 rotate-12 z-30 font-black">
-                100% LETHAL
-            </div>
-            
-            <div class="pkg-card" style="--card-color: var(--card-yellow);">
-                <div class="pkg-hole bg-white"></div>
-                
-                <div class="blister-container mt-8">
-                    <div class="blister-item bg-[var(--card-cyan)] p-6 text-center">
-                        <i class="fa-solid fa-triangle-exclamation text-4xl text-black mb-3"></i>
-                        <p class="font-bold text-base leading-relaxed z-10 relative text-black">
-                            They should probably put a warning label on you.<br><br>
-                            Highly addictive, completely mesmerizing, and illegally cute. Proceed with extreme caution. 😉
-                        </p>
-                    </div>
-                    <div class="blister-dome"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PAGE 10: FINALE EDITION -->
-    <div id="page-10" class="page-container">
-        <div class="pkg-wrapper tilt-target mt-1">
-            <div class="sticker sticker-star -top-6 -left-4 z-30 bg-[var(--card-cyan)] scale-110">OMG!</div>
-            <div class="sticker bg-white text-black px-3 py-1 rounded absolute top-2 right-4 rotate-12 z-30 font-black">#24</div>
-
-            <div class="pkg-card" style="--card-color: var(--card-orange); background-image: linear-gradient(45deg, var(--card-pink), var(--card-orange));">
-                <div class="pkg-hole bg-white"></div>
-                
-                <div class="blister-container mt-4">
-                    <div class="blister-item bg-white p-5 text-center">
-                        <h1 class="text-[clamp(2.5rem,8vw,3.5rem)] font-bangers text-black transform -rotate-2 mb-0 leading-none">HAPPY</h1>
-                        <h1 class="text-[clamp(2.5rem,8vw,3.5rem)] font-bangers text-[var(--card-cyan)] transform rotate-2 drop-shadow-[2px_2px_0px_#111] mb-1 leading-none">BIRTHDAY!</h1>
-                        
-                        <div class="bg-black text-[var(--card-lime)] font-anton text-3xl inline-block px-4 py-1 mt-1 transform -rotate-1 shadow-[4px_4px_0px_#fff]">RUHEEN</div>
-                        
-                        <div class="text-black font-bold mt-4 text-[13px] leading-relaxed">
-                            <p>Today is all about celebrating you, your beautiful heart, your lovely smile, and all the happiness you bring along. 🎉</p>
-                            <p class="font-urdu text-[15px] mt-2 mb-2" dir="rtl">آپ کی مسکراہٹ ہمیشہ یوں ہی قائم رہے، آپ کی ہر دعا قبول ہو، اور زندگی کا ہر نیا دن آپ کے لیے خوشیوں اور محبتوں سے بھرا ہو۔ 🤍</p>
-                            <p>May this year bring you countless reasons to smile, beautiful memories to cherish, and dreams that turn into reality. ✨</p>
-                            <p class="font-urdu text-[15px] mt-2" dir="rtl">آپ کی زندگی میں ہمیشہ سکون، محبت، برکت اور بے شمار خوشیاں رہیں۔ اللہ آپ کو ہر قدم پر کامیابی عطا فرمائے۔ آمین۔ 🤲🏻</p>
-                        </div>
-                    </div>
-                    <div class="blister-dome"></div>
                 </div>
 
-                <div class="blister-container mt-2">
-                    <button onclick="fireConfetti()" class="blister-btn bg-[var(--card-lime)] text-black !py-3 font-bangers text-2xl tracking-widest relative z-20">
-                        TAP FOR MAGIC ✨
-                    </button>
-                    <div class="blister-dome"></div>
+                <div class="bg-gradient-to-br from-pinksoft to-rose/10 rounded-xl p-6 mb-6 text-center shadow-md border border-white">
+                    <i class="fa-solid fa-quote-left text-rose/30 text-3xl mb-3"></i>
+                    <p class="font-hand text-2xl leading-relaxed font-bold text-charcoal">
+                        "Chand se pyari chandni,<br>
+                        Chandni se pyari raat,<br>
+                        Raat se pyari zindagi,<br>
+                        Aur zindagi se pyari aap..."
+                    </p>
+                </div>
+
+                <div class="paper-card p-6 mb-8 border-l-4 border-l-rose shadow-md">
+                    <p class="text-sm font-bold leading-relaxed mb-5 text-charcoal">
+                        Today is all about celebrating you, your beautiful heart, your lovely smile, and all the happiness you bring along. 🎉
+                    </p>
+                    <p class="font-urdu text-[18px] leading-[2.2] mb-5 text-right text-rose font-bold" dir="rtl">
+                        آپ کی مسکراہٹ ہمیشہ یوں ہی قائم رہے، آپ کی ہر دعا قبول ہو، اور زندگی کا ہر نیا دن آپ کے لیے خوشیوں اور محبتوں سے بھرا ہو۔ 🤍
+                    </p>
+                    <p class="text-sm font-bold leading-relaxed mb-5 text-charcoal">
+                        May this year bring you countless reasons to smile, beautiful memories to cherish, and dreams that turn into reality. ✨
+                    </p>
+                    <p class="font-urdu text-[18px] leading-[2.2] text-right text-rose font-bold" dir="rtl">
+                        آپ کی زندگی میں ہمیشہ سکون، محبت، برکت اور بے شمار خوشیاں رہیں۔ اللہ آپ کو ہر قدم پر کامیابی عطا فرمائے۔ آمین۔ 🤲🏻
+                    </p>
+                </div>
+
+                <div class="bg-white border border-border rounded-xl p-6 mb-10 shadow-lg relative overflow-hidden">
+                    <i class="fa-solid fa-gift text-rose/5 text-6xl absolute -top-4 -right-4"></i>
+                    <p class="text-xs uppercase tracking-widest text-muted font-black mb-5 border-b pb-2">Unlocked Gifts</p>
+                    <ul class="space-y-3 text-sm font-bold text-charcoal">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-heart text-rose bg-rose/10 p-2 rounded-full"></i> Unlimited Hugs</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-face-smile-beam text-rose bg-rose/10 p-2 rounded-full"></i> Endless Smiles</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-rose bg-rose/10 p-2 rounded-full"></i> Late Night Talks</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-camera text-rose bg-rose/10 p-2 rounded-full"></i> Beautiful Memories</li>
+                    </ul>
+                </div>
+
+                <div class="text-center pb-12">
+                    <button onclick="finaleConfetti()" class="btn-primary w-full text-xl py-5 shadow-2xl font-bold bg-gradient-to-r from-rose to-red-500">ACCEPT GIFT ♡</button>
                 </div>
             </div>
+        </section>
+
+        <!-- Lightbox -->
+        <div id="lightbox" onclick="closeLightbox()">
+            <i class="fa-solid fa-xmark lightbox-close"></i>
+            <img id="lightbox-img" src="" alt="Fullscreen Item" class="hidden">
+            <video id="lightbox-video" src="" controls class="hidden w-full max-w-sm rounded-lg shadow-2xl"></video>
         </div>
+
     </div>
 
-    <!-- NAVIGATION (HIDDEN INITIALLY) -->
-    <div id="nav-container" class="fixed bottom-0 left-0 w-full p-4 flex justify-between items-center z-[100] hidden bg-gradient-to-t from-black to-transparent pointer-events-none">
-        <button id="prevBtn" onclick="navigate(-1)" class="nav-btn w-12 h-12 bg-white text-black border-4 border-black rounded-full flex items-center justify-center text-xl disabled:opacity-50 disabled:pointer-events-none active:bg-gray-200 pointer-events-auto">
-            <i class="fa-solid fa-caret-left"></i>
-        </button>
-        
-        <div class="flex space-x-1.5 bg-white px-3 py-2 rounded-full border-4 border-black shadow-[4px_4px_0px_#111] pointer-events-auto" id="page-indicators">
+    <!-- Global Navigation Bar (Hidden on steps 1 and 2) -->
+    <div id="global-nav" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-6 bg-white/90 backdrop-blur-md px-6 py-3 rounded-full shadow-xl border border-rose/10 z-[100] opacity-0 pointer-events-none transition-all duration-500">
+        <button id="navPrevBtn" onclick="goPrev()" class="text-charcoal hover:text-rose transition-colors font-bold text-sm flex items-center gap-2 disabled:opacity-30 disabled:hover:text-charcoal"><i class="fa-solid fa-chevron-left"></i> PREV</button>
+        <div id="nav-dots" class="flex gap-2 items-center">
             <!-- Dots generated by JS -->
         </div>
-
-        <button id="nextBtn" onclick="navigate(1)" class="nav-btn w-12 h-12 bg-[var(--card-lime)] text-black border-4 border-black rounded-full flex items-center justify-center text-xl disabled:opacity-50 disabled:pointer-events-none active:bg-yellow-400 pointer-events-auto">
-            <i class="fa-solid fa-caret-right"></i>
-        </button>
+        <button id="navNextBtn" onclick="goNext()" class="text-charcoal hover:text-rose transition-colors font-bold text-sm flex items-center gap-2 disabled:opacity-30 disabled:hover:text-charcoal">NEXT <i class="fa-solid fa-chevron-right"></i></button>
     </div>
 
     <script>
-        let currentPage = 0;
-        const totalPages = 11;
-        const videoPageIndex = 7;
+        // --- Generate Floating Background Icons ---
+        function createFloatingIcons() {
+            const container = document.getElementById('bg-icons-container');
+            const icons = ['fa-heart', 'fa-star', 'fa-sparkles', 'fa-clover', 'fa-music'];
+            const colors = ['text-rose/20', 'text-pink-400/20', 'text-red-400/20', 'text-orange-300/20', 'text-white/40'];
+            
+            // Create 30 floating icons for magical impression
+            for(let i=0; i<30; i++) {
+                let el = document.createElement('i');
+                let icon = icons[Math.floor(Math.random() * icons.length)];
+                let color = colors[Math.floor(Math.random() * colors.length)];
+                
+                el.className = `fa-solid ${icon} ${color} bg-icon`;
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = (Math.random() * 100 + 100) + 'vh'; // start from below the screen
+                el.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                el.style.animationDelay = '-' + (Math.random() * 20) + 's';
+                el.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
+                
+                container.appendChild(el);
+            }
+        }
+        window.addEventListener('load', createFloatingIcons);
+
+        // --- State Management ---
+        const appState = {
+            currentChapter: 1,
+            maxUnlockedStep: 1, // Tracks how far the user has naturally progressed
+            musicPlaying: false,
+            letterOpened: false,
+            scratchCompleted: false,
+            loveMeterValue: 0,
+            loveMeterInterval: null,
+            atmState: 'insert', // insert, pin, menu, photos, balance, wish
+            atmPin: '',
+            atmPhotoIndex: 0,
+            cakeCut: false,
+            giftOpened: false,
+            mediaGallery: Array.from({length: 10}, (_, i) => ({ type: 'image', src: `img/1 (${i + 1}).png` }))
+        };
+        appState.mediaGallery.push({ type: 'video', src: 'img/video.mp4' }); // Add video
+
         const audio = document.getElementById('bgMusic');
-        audio.src = CONFIG.musicSrc;
 
-        // Create falling festive icons in the background
-        function createFallingIcons() {
-            const icons = ['fa-cake-candles', 'fa-gift', 'fa-star', 'fa-heart', 'fa-champagne-glasses', 'fa-music'];
-            const container = document.getElementById('falling-icons-container');
-            const colors = ['rgba(255,20,147,0.35)', 'rgba(0,255,255,0.35)', 'rgba(255,235,59,0.3)', 'rgba(204,255,0,0.3)', 'rgba(157,0,255,0.35)'];
+        // --- STREAMING_CHUNK:Updating navigation logic... ---
+        // --- Navigation ---
+        function goToStep(step) {
+            document.querySelectorAll('.chapter').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step-${step}`).classList.add('active');
+            
+            appState.currentChapter = step;
+            if(step > appState.maxUnlockedStep) {
+                appState.maxUnlockedStep = step;
+            }
+            
+            // Step specific initializations
+            if(step === 5) setTimeout(initScratchCard, 100);
+            if(step === 7) renderAtmScreen();
+            if(step === 8) initCake();
 
-            // Generate 35 falling elements
-            for (let i = 0; i < 35; i++) {
-                let iEl = document.createElement('i');
-                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
-                iEl.className = `fa-solid ${randomIcon} falling-icon`;
-                
-                // Random position, size, duration, and delay
-                const left = Math.random() * 100;
-                const size = Math.random() * 20 + 12; // 12px to 32px
-                const duration = Math.random() * 12 + 10; // 10s to 22s
-                const delay = Math.random() * -20; // negative delay to start immediately
-                
-                iEl.style.left = `${left}vw`;
-                iEl.style.fontSize = `${size}px`;
-                iEl.style.animationDuration = `${duration}s`;
-                iEl.style.animationDelay = `${delay}s`;
-                iEl.style.color = colors[Math.floor(Math.random() * colors.length)];
+            updateNav();
+        }
 
-                container.appendChild(iEl);
+        function nextStep() {
+            // Force unlock the next step when contextual buttons are clicked
+            const next = appState.currentChapter + 1;
+            if (next > appState.maxUnlockedStep) {
+                appState.maxUnlockedStep = next;
+            }
+            goToStep(next);
+        }
+
+        function goPrev() {
+            if(appState.currentChapter > 3) {
+                goToStep(appState.currentChapter - 1);
             }
         }
 
-        window.addEventListener('load', createFallingIcons);
+        function goNext() {
+            if(appState.currentChapter < 10 && appState.currentChapter < appState.maxUnlockedStep) {
+                goToStep(appState.currentChapter + 1);
+            }
+        }
 
+        function updateNav() {
+            const nav = document.getElementById('global-nav');
+            const prevBtn = document.getElementById('navPrevBtn');
+            const nextBtn = document.getElementById('navNextBtn');
+            const dots = document.getElementById('nav-dots');
+            
+            // Only show global nav from step 3 onwards
+            if(appState.currentChapter >= 3) {
+                nav.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                nav.classList.add('opacity-0', 'pointer-events-none');
+            }
+
+            // Enable/Disable buttons based on progress
+            prevBtn.disabled = (appState.currentChapter <= 3);
+            
+            // Can only use global "NEXT" if they have already unlocked the upcoming page
+            nextBtn.disabled = (appState.currentChapter >= appState.maxUnlockedStep || appState.currentChapter >= 10);
+
+            // Generate progress dots for steps 3 to 10
+            let dotsHtml = '';
+            for(let i = 3; i <= 10; i++) {
+                if(i === appState.currentChapter) {
+                    dotsHtml += `<div class="w-2.5 h-2.5 rounded-full bg-rose shadow-sm scale-110 transition-transform"></div>`;
+                } else if(i <= appState.maxUnlockedStep) {
+                    dotsHtml += `<div class="w-2 h-2 rounded-full bg-rose/40 cursor-pointer hover:bg-rose/70 transition-colors" onclick="goToStep(${i})"></div>`;
+                } else {
+                    dotsHtml += `<div class="w-2 h-2 rounded-full bg-gray-200"></div>`;
+                }
+            }
+            dots.innerHTML = dotsHtml;
+        }
+
+        // --- Step 1: Passkey ---
         function checkPassword() {
-            const input = document.getElementById('passInput').value;
+            const input = document.getElementById('passInput');
             const errorMsg = document.getElementById('errorMsg');
             
-            if(input.toLowerCase().trim() === CONFIG.password) {
-                audio.play().catch(e => console.log("Audio play failed, user interaction needed.", e));
-                document.getElementById('nav-container').classList.remove('hidden');
-                navigate(1);
+            if(input.value.toLowerCase().trim() === 'ruheen24') {
+                if(!appState.musicPlaying) {
+                    audio.play().catch(e => console.log("Audio play failed"));
+                    appState.musicPlaying = true;
+                }
+                goToStep(2);
+                setTimeout(() => goToStep(3), 2000); // Auto progress from loading
             } else {
+                input.classList.add('shake', 'border-rose');
                 errorMsg.classList.remove('opacity-0');
-                const inpEl = document.getElementById('passInput');
-                inpEl.classList.add('bg-red-200', 'border-red-600');
-                inpEl.style.transform = 'translate(-5px, 0)';
-                setTimeout(() => inpEl.style.transform = 'translate(5px, 0)', 100);
-                setTimeout(() => inpEl.style.transform = 'translate(-5px, 0)', 200);
-                setTimeout(() => inpEl.style.transform = 'translate(0, 0)', 300);
-
                 setTimeout(() => {
+                    input.classList.remove('shake');
+                }, 400);
+                setTimeout(() => {
+                    input.classList.remove('border-rose');
                     errorMsg.classList.add('opacity-0');
-                    inpEl.classList.remove('bg-red-200', 'border-red-600');
                 }, 2000);
             }
         }
-
-        document.getElementById('passInput').addEventListener('keypress', function(e) {
+        
+        document.getElementById('passInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkPassword();
         });
 
-        function navigate(direction) {
-            if (currentPage + direction < 1 || currentPage + direction >= totalPages) return;
-            
-            document.getElementById(`page-${currentPage}`).classList.remove('active');
-            currentPage += direction;
-            document.getElementById(`page-${currentPage}`).classList.add('active');
-            
-            updateNavUI();
-            handleMediaPlayback();
-
-            if(currentPage === totalPages - 1) setTimeout(fireConfetti, 500);
-        }
-
-        function handleMediaPlayback() {
-            const vid = document.getElementById('bday-video');
-            
-            if(currentPage === videoPageIndex) {
-                audio.pause();
-                vid.play().catch(e => console.log('Video autoplay requires interaction/unmuting on some browsers'));
-            } else {
-                vid.pause();
-                if(currentPage > 0) {
-                    audio.play().catch(e => console.log(e));
-                }
-            }
-        }
-
-        function updateNavUI() {
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const indicators = document.getElementById('page-indicators');
-            
-            prevBtn.disabled = (currentPage === 1);
-            nextBtn.disabled = (currentPage === totalPages - 1);
-
-            let dotsHTML = '';
-            for(let i=1; i<totalPages; i++) {
-                if(i === currentPage) {
-                    dotsHTML += `<div class="w-2 h-2 bg-[var(--card-pink)] border border-black rounded-full transform scale-125"></div>`;
-                } else {
-                    dotsHTML += `<div class="w-2 h-2 bg-gray-400 border border-black rounded-full"></div>`;
-                }
-            }
-            indicators.innerHTML = dotsHTML;
-        }
-
-        function renderGallery() {
-            const grid1 = document.getElementById('gallery-grid-1');
-            const grid2 = document.getElementById('gallery-grid-2');
-            
-            const mid = Math.ceil(mediaGallery.length / 2);
-            const half1 = mediaGallery.slice(0, mid);
-            const half2 = mediaGallery.slice(mid);
-
-            const glows = ['rgba(0,255,255,0.3)', 'rgba(255,20,147,0.3)', 'rgba(255,235,59,0.2)', 'rgba(204,255,0,0.2)', 'rgba(157,0,255,0.3)'];
-            const rotations = ['rotate-[-3deg]', 'rotate-[2deg]', 'rotate-[-1deg]', 'rotate-[3deg]', 'rotate-[-2deg]'];
-
-            function createItemHTML(item, index) {
-                const placeholderUrl = `https://placehold.co/400x550/222/fff?text=Package+${index + 1}`;
-                const randGlow = glows[index % glows.length];
-                const randRot = rotations[index % rotations.length];
-                
-                let content = '';
-                if (item.type === 'image') {
-                    content = `<img src="${item.src}" alt="Collectible Package" 
-                                    onerror="this.onerror=null; this.src='${placeholderUrl}';" 
-                                    class="collectible-photo" 
-                                    onclick="openLightbox(this.src)">`;
-                }
-
-                if(!content) return '';
-
-                return `
-                    <div class="gallery-item-wrapper ${randRot} tilt-target" style="--glow-color: ${randGlow};">
-                        ${content}
-                    </div>`;
-            }
-
-            grid1.innerHTML = half1.map((item, idx) => createItemHTML(item, idx)).join('');
-            grid2.innerHTML = half2.map((item, idx) => createItemHTML(item, idx + mid)).join('');
-        }
-
-        renderGallery();
-
-        function openLightbox(src) {
-            const lightbox = document.getElementById('lightbox');
-            const img = document.getElementById('lightbox-img');
-            img.src = src;
-            lightbox.classList.add('active');
-        }
-
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('active');
+        // --- Step 4: Interactive Letter ---
+        function openEnvelope() {
+            if (appState.letterOpened) return;
+            appState.letterOpened = true;
+            document.getElementById('letterEnvelope').classList.add('open');
             setTimeout(() => {
-                document.getElementById('lightbox-img').src = '';
-            }, 300);
+                document.getElementById('letterNextBtn').classList.remove('opacity-0', 'pointer-events-none');
+            }, 1000);
         }
 
-        function startCountdown() {
-            const target = new Date(CONFIG.targetDate).getTime();
+        // --- Step 5: Scratch Card ---
+        function initScratchCard() {
+            if(appState.scratchCompleted) return;
+            const canvas = document.getElementById('scratch-canvas');
+            const ctx = canvas.getContext('2d');
             
-            function update() {
-                const now = new Date().getTime();
-                const distance = target - now;
+            // Wait for display block to have dimensions
+            canvas.width = canvas.offsetWidth || 300;
+            canvas.height = canvas.offsetHeight || 160;
+            
+            // Fill beige covering
+            ctx.fillStyle = '#EEDECB';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add subtle pattern/text over canvas
+            ctx.fillStyle = '#A32A33';
+            ctx.font = '16px Poppins';
+            ctx.textAlign = 'center';
+            ctx.globalAlpha = 0.4;
+            ctx.fillText('SCRATCH TO REVEAL', canvas.width/2, canvas.height/2);
+            ctx.globalAlpha = 1;
 
-                if (distance < 0) {
-                    const cdContainer = document.getElementById("countdown-container");
-                    if(cdContainer) cdContainer.style.display = 'none';
-                    return; 
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            ctx.lineWidth = 35;
+
+            let isDrawing = false;
+
+            function scratch(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+                
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                
+                // Check completion periodically
+                if(Math.random() > 0.8) checkCompletion();
+            }
+
+            function startDraw(e) {
+                isDrawing = true;
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            }
+
+            function endDraw() {
+                isDrawing = false;
+                checkCompletion();
+            }
+
+            function checkCompletion() {
+                if(appState.scratchCompleted) return;
+                const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+                let transparent = 0;
+                for (let i = 3; i < pixels.length; i += 4) {
+                    if (pixels[i] < 128) transparent++;
                 }
+                const percent = (transparent / (pixels.length / 4)) * 100;
+                
+                if (percent > 55) {
+                    appState.scratchCompleted = true;
+                    canvas.style.transition = 'opacity 0.5s';
+                    canvas.style.opacity = '0';
+                    setTimeout(() => {
+                        canvas.style.display = 'none';
+                        document.getElementById('scratchMessage').style.display = 'none';
+                        document.getElementById('scratchNextBtn').classList.remove('opacity-0', 'pointer-events-none');
+                    }, 500);
+                }
+            }
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            canvas.addEventListener('mousedown', startDraw);
+            canvas.addEventListener('mousemove', scratch);
+            canvas.addEventListener('mouseup', endDraw);
+            canvas.addEventListener('touchstart', startDraw, {passive: false});
+            canvas.addEventListener('touchmove', scratch, {passive: false});
+            canvas.addEventListener('touchend', endDraw);
+        }
 
-                document.getElementById("cd-days").innerText = days < 10 ? '0'+days : days;
-                document.getElementById("cd-hours").innerText = hours < 10 ? '0'+hours : hours;
-                document.getElementById("cd-minutes").innerText = minutes < 10 ? '0'+minutes : minutes;
-                document.getElementById("cd-seconds").innerText = seconds < 10 ? '0'+seconds : seconds;
+        // --- Step 6: Love Meter (FIXED) ---
+        const fillBtn = document.getElementById('fillBtn');
+        
+        function updateMeter() {
+            if(appState.loveMeterValue >= 100) {
+                appState.loveMeterValue = 100;
+                
+                // Explicitly set final state
+                document.getElementById('jarFill').style.height = `100%`;
+                const numEl = document.getElementById('lovePercent');
+                numEl.innerText = `100%`;
+                numEl.classList.replace('text-charcoal', 'text-rose');
+                
+                stopMeter();
+                completeMeter();
+                return;
             }
             
-            update();
-            setInterval(update, 1000);
+            appState.loveMeterValue += 2;
+            document.getElementById('jarFill').style.height = `${appState.loveMeterValue}%`;
+            
+            const numEl = document.getElementById('lovePercent');
+            numEl.innerText = `${appState.loveMeterValue}%`;
+            
+            if(appState.loveMeterValue > 50) numEl.classList.replace('text-charcoal', 'text-rose');
         }
-        
-        startCountdown();
 
-        function fireConfetti() {
-            var duration = 3 * 1000;
+        function startMeter(e) {
+            if (e && e.type === 'touchstart') e.preventDefault();
+            if (appState.loveMeterValue >= 100) return;
+            fillBtn.style.transform = 'scale(0.9)';
+            
+            // Clear any existing interval just in case
+            if (appState.loveMeterInterval) clearInterval(appState.loveMeterInterval);
+            appState.loveMeterInterval = setInterval(updateMeter, 40); // Faster fill
+        }
+
+        function stopMeter() {
+            fillBtn.style.transform = 'scale(1)';
+            if (appState.loveMeterInterval) {
+                clearInterval(appState.loveMeterInterval);
+                appState.loveMeterInterval = null;
+            }
+        }
+
+        function completeMeter() {
+            // Hide the press and hold controls
+            document.getElementById('meterControls').classList.add('hidden');
+            
+            // Show the next button block securely
+            const res = document.getElementById('meterResult');
+            res.classList.remove('hidden');
+            res.classList.add('flex'); // Ensure flex is applied since it was hidden
+        }
+
+        fillBtn.addEventListener('mousedown', startMeter);
+        fillBtn.addEventListener('mouseup', stopMeter);
+        fillBtn.addEventListener('mouseleave', stopMeter);
+        fillBtn.addEventListener('touchstart', startMeter, {passive: false});
+        fillBtn.addEventListener('touchend', stopMeter);
+        fillBtn.addEventListener('touchcancel', stopMeter);
+
+        // --- Step 7: Virtual ATM ---
+        const atmScreen = document.getElementById('atmScreen');
+
+        function renderAtmScreen() {
+            let html = '';
+            switch(appState.atmState) {
+                case 'insert':
+                    html = `<div class="h-full flex items-center justify-center text-center">
+                                <span class="blink">INSERT CARD<br>(PRESS ENTER)</span>
+                            </div>`;
+                    break;
+                case 'pin':
+                    html = `<div class="mt-4">
+                                <p>PLEASE ENTER PIN:</p>
+                                <p class="text-2xl mt-4 tracking-widest">${'*'.repeat(appState.atmPin.length)}${appState.atmPin.length < 4 ? '_' : ''}</p>
+                            </div>`;
+                    break;
+                case 'menu':
+                    html = `<div>
+                                <p class="mb-4 font-bold border-b border-green-800 pb-1">MAIN MENU</p>
+                                <p>1. MY PHOTOS</p>
+                                <p class="mt-2">2. PLAY VIDEO</p>
+                                <p class="mt-2">3. LOVE BALANCE</p>
+                                <p class="mt-2">4. MY WISH</p>
+                                <p class="mt-2 text-red-400">5. EXIT</p>
+                                <p class="mt-4 text-xs blink">SELECT OPTION (1-5)</p>
+                            </div>`;
+                    break;
+                case 'photos':
+                    const media = appState.mediaGallery[appState.atmPhotoIndex];
+                    html = `<div class="flex flex-col h-full">
+                                <p class="text-xs mb-2 border-b border-green-800">GALLERY [${appState.atmPhotoIndex + 1}/${appState.mediaGallery.length}]</p>
+                                <div class="flex-1 flex justify-center items-center bg-black/80 rounded overflow-hidden cursor-pointer" onclick="openLightbox('${media.src}', '${media.type}')">
+                                    ${media.type === 'image' 
+                                        ? `<img src="${media.src}" class="max-h-full object-contain" onerror="this.src='https://placehold.co/200x200/050A08/4ADE80?text=Image+${appState.atmPhotoIndex+1}'">`
+                                        : `<div class="text-center"><i class="fa-solid fa-play text-4xl"></i><p class="text-[10px] mt-2 font-bold tracking-widest">TAP TO PLAY</p></div>`
+                                    }
+                                </div>
+                                <p class="text-[10px] mt-2 flex justify-between font-bold">
+                                    <span>[4] PREV</span> <span>[6] NEXT</span> <span>[0] BACK</span>
+                                </p>
+                            </div>`;
+                    break;
+                case 'video_play':
+                    html = `<div class="flex flex-col h-full">
+                                <p class="text-xs mb-2 border-b border-green-800">SPECIAL VIDEO</p>
+                                <div class="flex-1 flex justify-center items-center bg-black/80 rounded overflow-hidden cursor-pointer" onclick="openLightbox('img/video.mp4', 'video')">
+                                    <div class="text-center"><i class="fa-solid fa-play text-4xl"></i><p class="text-[10px] mt-2 font-bold tracking-widest">TAP TO PLAY</p></div>
+                                </div>
+                                <p class="mt-4 text-center text-xs font-bold">[0] TO RETURN</p>
+                            </div>`;
+                    break;
+                case 'balance':
+                    html = `<div>
+                                <p class="mb-4 font-bold border-b border-green-800 pb-1">ACCOUNT BALANCE</p>
+                                <p class="mb-2">LOVE: <span class="float-right text-white">100% ████</span></p>
+                                <p class="mb-2">HUGS: <span class="float-right text-white">∞</span></p>
+                                <p class="mb-2">SMILES: <span class="float-right text-white">∞</span></p>
+                                <p class="mt-8 text-center text-xs font-bold">[0] TO RETURN</p>
+                            </div>`;
+                    break;
+                case 'wish':
+                    html = `<div>
+                                <p class="mb-2 font-bold border-b border-green-800 pb-1">DEPOSIT WISH</p>
+                                <p class="text-xs leading-relaxed mb-4 text-white">Wishing you the happiest birthday ever! May all your dreams come true.</p>
+                                <p class="text-center text-xs blink border border-green-800 p-1 bg-green-900/50">WISH SAVED SAFELY</p>
+                                <p class="mt-8 text-center text-xs font-bold">[0] TO RETURN</p>
+                            </div>`;
+                    break;
+            }
+            atmScreen.innerHTML = html;
+        }
+
+        function atmKeyPress(key) {
+            const s = appState.atmState;
+            
+            if (key === 'clear') {
+                if (s === 'pin') { appState.atmPin = ''; renderAtmScreen(); }
+                return;
+            }
+
+            if (s === 'insert' && key === 'enter') {
+                appState.atmState = 'pin';
+                appState.atmPin = '';
+            } 
+            else if (s === 'pin') {
+                if (key !== 'enter' && appState.atmPin.length < 4) {
+                    appState.atmPin += key;
+                } else if (key === 'enter' && appState.atmPin.length > 0) {
+                    appState.atmState = 'menu';
+                }
+            }
+            else if (s === 'menu') {
+                if (key === 1) appState.atmState = 'photos';
+                else if (key === 2) appState.atmState = 'video_play';
+                else if (key === 3) appState.atmState = 'balance';
+                else if (key === 4) appState.atmState = 'wish';
+                else if (key === 5) nextStep();
+            }
+            else if (s === 'photos') {
+                if (key === 0) appState.atmState = 'menu';
+                else if (key === 4) appState.atmPhotoIndex = (appState.atmPhotoIndex - 1 + appState.mediaGallery.length) % appState.mediaGallery.length;
+                else if (key === 6) appState.atmPhotoIndex = (appState.atmPhotoIndex + 1) % appState.mediaGallery.length;
+            }
+            else if (s === 'balance' || s === 'wish' || s === 'video_play') {
+                if (key === 0) appState.atmState = 'menu';
+            }
+            
+            renderAtmScreen();
+        }
+
+        // --- Step 8: Cake Cutting ---
+        function initCake() {
+            if(appState.cakeCut) return;
+            const container = document.getElementById('cakeContainer');
+            const knife = document.getElementById('knife');
+            let isDragging = false;
+            let startX = 0;
+            let containerRect = container.getBoundingClientRect();
+
+            function dragStart(e) {
+                if(appState.cakeCut) return;
+                isDragging = true;
+                containerRect = container.getBoundingClientRect();
+                knife.style.transition = 'none';
+            }
+
+            function dragMove(e) {
+                if (!isDragging || appState.cakeCut) return;
+                e.preventDefault();
+                let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                let x = clientX - containerRect.left - 20; // offset for center of knife
+                
+                // Constrain
+                x = Math.max(-40, Math.min(containerRect.width, x));
+                knife.style.transform = `translateX(${x}px)`;
+
+                // Cut threshold
+                if (x > containerRect.width * 0.6) {
+                    triggerCut();
+                }
+            }
+
+            function dragEnd() {
+                if (!isDragging || appState.cakeCut) return;
+                isDragging = false;
+                knife.style.transition = 'transform 0.3s';
+                knife.style.transform = `translateX(-40px)`;
+            }
+
+            function triggerCut() {
+                isDragging = false;
+                appState.cakeCut = true;
+                container.classList.add('cake-cut');
+                
+                // Tiny confetti burst
+                confetti({
+                    particleCount: 40, spread: 70, origin: { y: 0.6 },
+                    colors: ['#A32A33', '#EEDECB', '#FFFFFF', '#F4E5E5']
+                });
+
+                setTimeout(() => {
+                    document.getElementById('cakeNextBtn').classList.remove('opacity-0', 'pointer-events-none');
+                }, 1000);
+            }
+
+            knife.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', dragMove);
+            document.addEventListener('mouseup', dragEnd);
+            
+            knife.addEventListener('touchstart', dragStart, {passive: false});
+            document.addEventListener('touchmove', dragMove, {passive: false});
+            document.addEventListener('touchend', dragEnd);
+        }
+
+        // --- Step 9: Final Gift ---
+        function openGift() {
+            if(appState.giftOpened) return;
+            appState.giftOpened = true;
+            document.getElementById('giftBox').classList.add('gift-opened');
+            document.getElementById('giftText').style.opacity = '0';
+            
+            setTimeout(() => {
+                nextStep();
+            }, 1200);
+        }
+
+        // --- Step 10: Finale Confetti ---
+        function finaleConfetti() {
+            var duration = 4000;
             var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+            var defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 100 };
 
             function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
@@ -858,64 +1163,43 @@
                 confetti(Object.assign({}, defaults, { 
                     particleCount, 
                     origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-                    colors: ['#ff1493', '#00ffff', '#ccff00', '#9d00ff', '#ffffff', '#111111']
+                    colors: ['#A32A33', '#B83B44', '#EEDECB', '#FDFBF7']
                 }));
                 confetti(Object.assign({}, defaults, { 
                     particleCount, 
                     origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-                    colors: ['#ff1493', '#00ffff', '#ccff00', '#9d00ff', '#ffffff', '#111111']
+                    colors: ['#A32A33', '#B83B44', '#EEDECB', '#FDFBF7']
                 }));
             }, 250);
         }
 
-        function handleTilt(clientX, clientY) {
-            const activePage = document.querySelector('.page-container.active');
-            if(!activePage) return;
+        // --- Lightbox Utility ---
+        function openLightbox(src, type) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            const vid = document.getElementById('lightbox-video');
+            
+            img.classList.add('hidden');
+            vid.classList.add('hidden');
+            vid.pause();
 
-            const cards = activePage.querySelectorAll('.tilt-target');
-            cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                if(rect.top > window.innerHeight || rect.bottom < 0) return;
-                
-                const x = clientX - rect.left - rect.width/2;
-                const y = clientY - rect.top - rect.height/2;
-                
-                const rotateX = Math.max(-10, Math.min(10, -y / 20));
-                const rotateY = Math.max(-10, Math.min(10, x / 20));
-                
-                if(card.classList.contains('pkg-wrapper')) {
-                    card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                    card.style.setProperty('--tilt-x', `${x}px`);
-                    card.style.setProperty('--tilt-y', `${y}px`);
-                } else if (card.classList.contains('gallery-item-wrapper')) {
-                    card.style.setProperty('--tilt-x', `${x/10}deg`);
-                    card.style.setProperty('--tilt-y', `${y/10}deg`);
-                }
-            });
-        }
-
-        function resetTilt() {
-            document.querySelectorAll('.tilt-target').forEach(card => {
-                if(card.classList.contains('pkg-wrapper')) {
-                    card.style.transform = `perspective(1200px) rotateX(0) rotateY(0)`;
-                    card.style.setProperty('--tilt-x', `0px`);
-                    card.style.setProperty('--tilt-y', `0px`);
-                }
-            });
-        }
-
-        // Mouse Events (Desktop)
-        document.addEventListener('mousemove', (e) => handleTilt(e.clientX, e.clientY));
-        document.addEventListener('mouseleave', resetTilt);
-
-        // Touch Events (Mobile)
-        document.addEventListener('touchmove', (e) => {
-            if (e.touches.length > 0) {
-                handleTilt(e.touches[0].clientX, e.touches[0].clientY);
+            if (type === 'image') {
+                img.src = src;
+                img.classList.remove('hidden');
+            } else {
+                vid.src = src;
+                vid.classList.remove('hidden');
+                vid.play().catch(e => console.log('Autoplay blocked'));
             }
-        }, { passive: true });
-        document.addEventListener('touchend', resetTilt);
-        document.addEventListener('touchcancel', resetTilt);
+            
+            lb.classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.getElementById('lightbox-video').pause();
+        }
+
     </script>
 </body>
 </html>
